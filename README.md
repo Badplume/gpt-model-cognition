@@ -4,7 +4,6 @@ MIT 开源项目：[Badplume/model-cognition-hub](https://github.com/Badplume/mo
 部署自己的副本请先阅读 [部署说明](docs/deployment.md)、[安全边界](SECURITY.md)
 和 [第三方许可](THIRD_PARTY_NOTICES.md)。维护者的在线插件仍是私人实例。
 
-3.3.1 界面维护：连接页标题改为「为 GPT 配备外部专家」。用户已确认 Gemini Key 连接成功；付费推理未在本次维护中执行。
 
 ## 3.3.0 人民币基础币种与 Gemini 修复
 
