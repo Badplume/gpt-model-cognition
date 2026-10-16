@@ -1,0 +1,30 @@
+{
+  "version": "3.0.0",
+  "date": "2026-10-16",
+  "published_source_commit": "d95d7f145b90208e0850395367bf17163b1d2793",
+  "plugin_release": "pluginrel_6ad1f2d175308191932348499c0fb70a",
+  "verified": {
+    "mock_tests": 26,
+    "typecheck": true,
+    "production_build": true,
+    "production_deployment": true,
+    "cloud_plugin_package": true,
+    "skills": 4,
+    "local_desktop_package_installed": true,
+    "local_desktop_package_enabled": true,
+    "model_facing_tools_discovered": 12,
+    "production_status_read": true,
+    "private_github_backup": true
+  },
+  "not_verified": [
+    "Real inference with a user-supplied provider API key",
+    "Actual ChatGPT desktop console rendering"
+  ],
+  "observed_issue": "Web full-screen MCP App showed Application unavailable. Native desktop visibility was not confirmed by the user; personal marketplace installation was subsequently completed.",
+  "marketplace": {
+    "personal_name": "model-cognition-personal",
+    "display_name": "我的模型工具",
+    "plugin_name": "dev-6b5f62835bf48191a0e64586536934a8"
+  },
+  "credentials_in_backup": false
+}

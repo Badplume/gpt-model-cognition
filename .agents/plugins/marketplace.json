@@ -1,0 +1,20 @@
+{
+  "name": "model-cognition-hub",
+  "interface": {
+    "displayName": "模型认知工具"
+  },
+  "plugins": [
+    {
+      "name": "dev-6b5f62835bf48191a0e64586536934a8",
+      "source": {
+        "source": "local",
+        "path": "./plugin"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}
