@@ -1,11 +1,11 @@
 {
-  "version": "3.0.0",
-  "created_utc": "2026-10-16T09:59:59.141Z",
-  "source_commit": "d95d7f145b90208e0850395367bf17163b1d2793",
-  "plugin_release": "pluginrel_6ad1f2d175308191932348499c0fb70a",
+  "version": "3.1.0",
+  "created_utc": "2026-10-16T10:48:06.280Z",
+  "source_commit": "0a941c86a2efe60fbf6777c2aef6d78ab459ecef",
+  "plugin_release": "pluginrel_6ad20080fc9081918657fa9b5021432c",
   "repository": "Badplume/model-cognition-hub",
   "validation": {
-    "mock_tests_passed": 26,
+    "mock_tests_passed": 29,
     "typecheck": "passed",
     "production_build": "passed",
     "production_deployment": "succeeded",
@@ -32,11 +32,11 @@
     },
     {
       "path": "README.md",
-      "sha256": "e1cf40a37f92fdf3044e740984301d6b3355f21f1b38f455a8ac49873ad70350"
+      "sha256": "f24ff854301f8165c1642619af0567a9c3b5cf2815e2bbb670c587d59c9108b1"
     },
     {
       "path": "app/api/config/route.ts",
-      "sha256": "204ba2eeb1bba54edabdf7502beb53178e1d2d7c424dda93a58254bdce08e440"
+      "sha256": "22740e611ae42d12ddcba2a9548146903a440db8acc6add237d4dcffb8d362b7"
     },
     {
       "path": "app/api/models/route.ts",
@@ -68,7 +68,7 @@
     },
     {
       "path": "app/page.tsx",
-      "sha256": "fac791bd66d0da283edf2f8deedd83afb9aa6279889f86e1e793ee22767cd030"
+      "sha256": "82fa629d0d851c3a63dd86db3bcc8dc7e590f47d063ed732f486efabbecd0e7e"
     },
     {
       "path": "build/connector-preview-plugin.mjs",
@@ -104,7 +104,7 @@
     },
     {
       "path": "components/provider-manager.tsx",
-      "sha256": "904fbd988c7cebc0ceb6b1ae9e895bb919206e88b1454c635bbbe3e83751930a"
+      "sha256": "47e0ad62d117bf7dfda406b4e9bf2336f6d42e33beaaf133c0b27ba55a261499"
     },
     {
       "path": "components/request-console.tsx",
@@ -412,7 +412,7 @@
     },
     {
       "path": "lib/client-api.ts",
-      "sha256": "6281afb1372eb34e2378934671d353e85d78523a9e60ec83ec40870d8e78b4b2"
+      "sha256": "c71a40b50fd56d05a3446d41af64f81ecce7d41ffee76985204ce4d237f28752"
     },
     {
       "path": "lib/connector-context.ts",
@@ -436,11 +436,19 @@
     },
     {
       "path": "lib/console-ui.mjs",
-      "sha256": "5f6167a363d23e1abd7f8e0fc1cf2e6204b271d3823f32f9c5af182113707d5c"
+      "sha256": "58f4a32dd62114b2174acacf3f96853b158968d588d334421a7b5ffe2edaf2e9"
     },
     {
       "path": "lib/delegator.mjs",
-      "sha256": "de42156de5ea5106b76c9389a787377ff7120bd7f8962fa9e7731e74b48ecef4"
+      "sha256": "10ca8a39580dadb6d297e1000606bd88e0d2863b6b0180bdfcfe30acec3d72fc"
+    },
+    {
+      "path": "lib/desktop-settings-ui.mjs",
+      "sha256": "ed622574a82ff33fe3231e4eb4294a551850698a649cf7f3bc1c858d83e1825f"
+    },
+    {
+      "path": "lib/presets.mjs",
+      "sha256": "e8ff95634188eb7107229bff637c65eabbf08b98fd503f708477740d1d8c3d53"
     },
     {
       "path": "lib/providers.mjs",
@@ -448,7 +456,7 @@
     },
     {
       "path": "lib/settings-ui.mjs",
-      "sha256": "154517e264b5ab3c517232ffe35c5a4f48181b163d597f29f33dcb55fe76e634"
+      "sha256": "8ed25e67f7f45a73708bfd76e2d2a690cef0d6cbb470a81c3a278f788cf4ba99"
     },
     {
       "path": "lib/utils.ts",
@@ -464,7 +472,7 @@
     },
     {
       "path": "package.json",
-      "sha256": "75338d4868e4168ae6baa432063daeb724efc53404af66bb9806e6f9b14d7496"
+      "sha256": "adaee58feb122c604ee7a4a0aa72535de6de949283b90874c102e5cd204eeb9f"
     },
     {
       "path": "pnpm-lock.yaml",
@@ -500,7 +508,7 @@
     },
     {
       "path": "scripts/build-widget.mjs",
-      "sha256": "99b1d1ca662be9e90181754e84f992ea8cf6de32b60d90af72f67272c4f13c8f"
+      "sha256": "df35e8e704e74c5f2f6a5bb5a408639c8a5fc7d760adc79a89bd0ba1ae92d2e9"
     },
     {
       "path": "scripts/connector-preview/connector-preview-session.mjs",
@@ -560,7 +568,7 @@
     },
     {
       "path": "skills/model-orchestration/SKILL.md",
-      "sha256": "c710d4a18d3b09201d7cd338c781cfd2eb14c7a229e26c7d7ae04c4ba964ee4f"
+      "sha256": "a59177c71c76f8fd639597c877f924d16a245bfb96b1ee2b7d31f38ecb3adb85"
     },
     {
       "path": "skills/model-orchestration/agents/openai.yaml",
@@ -568,11 +576,11 @@
     },
     {
       "path": "skills/provider-setup/SKILL.md",
-      "sha256": "f1c641841d3f323f223d3700198dae769e51d7a774d12b173e63e25f208f145a"
+      "sha256": "999024963d8d8f47a02c202f9b779aa4a31d7258dd31a4d144dc6860edcbd38e"
     },
     {
       "path": "tests/delegator.test.mjs",
-      "sha256": "d3722b0686020a4902c3cfd06a4473923be3c99e36e35555d323285098f3e519"
+      "sha256": "28504867caf97982989418acd4f7b600b79a0a3cf790d1ea44dff7cf2673afa5"
     },
     {
       "path": "tsconfig.json",
@@ -596,11 +604,11 @@
     },
     {
       "path": "plugin/.codex-plugin/plugin.json",
-      "sha256": "22ffefd8a7f4c3ab109f41a5a0e3dd03fd118af6df84075aea97d903cbd4bc1c"
+      "sha256": "e8c3f10f60618d4d4a8957490a5b1cd1e96be1caab48b3d39eae1aca866a827c"
     },
     {
       "path": "plugin/plugin.json",
-      "sha256": "fb56144cc852be24fff4f682db0fb7f37792a4e1dcdf4ee0e620f4541fd2929c"
+      "sha256": "9eb8916dcba3535bc8648ad8b5635bfab7338f2b66d491297f476a698cbfd4a5"
     },
     {
       "path": "plugin/skills/manual-model-call/SKILL.md",
@@ -616,11 +624,11 @@
     },
     {
       "path": "plugin/skills/model-orchestration/SKILL.md",
-      "sha256": "c710d4a18d3b09201d7cd338c781cfd2eb14c7a229e26c7d7ae04c4ba964ee4f"
+      "sha256": "a59177c71c76f8fd639597c877f924d16a245bfb96b1ee2b7d31f38ecb3adb85"
     },
     {
       "path": "plugin/skills/provider-setup/SKILL.md",
-      "sha256": "f1c641841d3f323f223d3700198dae769e51d7a774d12b173e63e25f208f145a"
+      "sha256": "999024963d8d8f47a02c202f9b779aa4a31d7258dd31a4d144dc6860edcbd38e"
     }
   ]
 }

@@ -1,10 +1,10 @@
 {
-  "version": "3.0.0",
+  "version": "3.1.0",
   "date": "2026-10-16",
-  "published_source_commit": "d95d7f145b90208e0850395367bf17163b1d2793",
-  "plugin_release": "pluginrel_6ad1f2d175308191932348499c0fb70a",
+  "published_source_commit": "0a941c86a2efe60fbf6777c2aef6d78ab459ecef",
+  "plugin_release": "pluginrel_6ad20080fc9081918657fa9b5021432c",
   "verified": {
-    "mock_tests": 26,
+    "mock_tests": 29,
     "typecheck": true,
     "production_build": true,
     "production_deployment": true,
@@ -12,19 +12,15 @@
     "skills": 4,
     "local_desktop_package_installed": true,
     "local_desktop_package_enabled": true,
-    "model_facing_tools_discovered": 12,
-    "production_status_read": true,
+    "native_settings_web_permission_save": true,
+    "starter_limits_saved": true,
+    "missing_provider_blocks_inference": true,
+    "used_or_reserved_usd": 0,
     "private_github_backup": true
   },
   "not_verified": [
-    "Real inference with a user-supplied provider API key",
-    "Actual ChatGPT desktop console rendering"
+    "Windows native desktop window rendering",
+    "Real inference with a user-supplied provider API key"
   ],
-  "observed_issue": "Web full-screen MCP App showed Application unavailable. Native desktop visibility was not confirmed by the user; personal marketplace installation was subsequently completed.",
-  "marketplace": {
-    "personal_name": "model-cognition-personal",
-    "display_name": "我的模型工具",
-    "plugin_name": "dev-6b5f62835bf48191a0e64586536934a8"
-  },
   "credentials_in_backup": false
 }
