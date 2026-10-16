@@ -18,7 +18,7 @@
   "budget_currency": "CNY",
   "user_settings_migration": "verified through authenticated MCP; historical USD retained",
   "real_new_provider_inference": "not run; no new provider credentials",
-  "desktop_visual": "not inspected: browser automation unavailable; self-contained resources and protocol tests passed",
+  "desktop_visual": "Native desktop not directly inspected: browser automation unavailable. Equivalent standalone bundled console rendered and tested with mock API.",
   "automation": {
     "id": "Automation_75f3a867b7e48191acaceb1fb755c92e",
     "enabled": true,
@@ -27,5 +27,14 @@
     "service_writer": "POST /api/pricing",
     "unattended_service_access": "verified with POST and GET readback",
     "scheduled_run": "not yet due"
+  },
+  "browser_ui": {
+    "rendering": "passed",
+    "native_currency_price": "CNY 2.4 input / 9.6 output per million displayed for qwen-max",
+    "manual_price_fields": "absent",
+    "save_model_without_manual_prices": "passed",
+    "cny_budget_controls": "passed",
+    "uncaught_browser_errors": 0,
+    "environment": "fresh headless Edge with mock API; local screenshot visually inspected"
   }
 }

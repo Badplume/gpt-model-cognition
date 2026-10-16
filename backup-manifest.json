@@ -25,7 +25,7 @@
     "budget_currency": "CNY",
     "user_settings_migration": "verified through authenticated MCP; historical USD retained",
     "real_new_provider_inference": "not run; no new provider credentials",
-    "desktop_visual": "not inspected: browser automation unavailable; self-contained resources and protocol tests passed",
+    "desktop_visual": "Native desktop not directly inspected: browser automation unavailable. Equivalent standalone bundled console rendered and tested with mock API.",
     "automation": {
       "id": "Automation_75f3a867b7e48191acaceb1fb755c92e",
       "enabled": true,
@@ -34,6 +34,15 @@
       "service_writer": "POST /api/pricing",
       "unattended_service_access": "verified with POST and GET readback",
       "scheduled_run": "not yet due"
+    },
+    "browser_ui": {
+      "rendering": "passed",
+      "native_currency_price": "CNY 2.4 input / 9.6 output per million displayed for qwen-max",
+      "manual_price_fields": "absent",
+      "save_model_without_manual_prices": "passed",
+      "cny_budget_controls": "passed",
+      "uncaught_browser_errors": 0,
+      "environment": "fresh headless Edge with mock API; local screenshot visually inspected"
     }
   },
   "excluded": [
@@ -233,7 +242,7 @@
     },
     {
       "path": "verification.json",
-      "sha256": "d20565db41377875ffca828bcf7e5f38400eded0b521a17274209de2848f0b9a"
+      "sha256": "dda01570d792a4fef1fadd789ea3560760828d368bbe9eb349adcab5d70d92ef"
     },
     {
       "path": "maintenance/3.2.0.md",
@@ -242,6 +251,10 @@
     {
       "path": "maintenance/bailian-student-guide.md",
       "sha256": "f5f2e61d515873d0ac6072191d0bb1e2a9d09e040a27eb70c970477fa3308fb5"
+    },
+    {
+      "path": "maintenance/ui-verification-3.2.0.json",
+      "sha256": "81f1de594a589fb95c1ad30e4a5ab7c20c334cbfe91f6f6f63a0cf602ce44883"
     }
   ]
 }

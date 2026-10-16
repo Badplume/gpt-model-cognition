@@ -1,0 +1,10 @@
+{
+  "version": "3.2.0",
+  "rendering": "passed",
+  "native_currency_price": "CNY 2.4 input / 9.6 output per million displayed for qwen-max",
+  "manual_price_fields": "absent",
+  "save_model_without_manual_prices": "passed",
+  "cny_budget_controls": "passed",
+  "uncaught_browser_errors": 0,
+  "environment": "fresh headless Edge with mock API; local screenshot visually inspected"
+}
