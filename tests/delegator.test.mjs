@@ -7,7 +7,8 @@ import {DEFAULTS,seal,unseal,validateSettings,consult,mcp,checkOrigin,selectMode
 import {SETTINGS_HTML,SETTINGS_URI} from '../lib/settings-ui.mjs';
 import {Script} from 'node:vm';
 import {prepareRequest,decideRequest,executeRequest,getRequest} from '../lib/workload.mjs';
-import {providerModels,directInference} from '../lib/providers.mjs';
+import {providerModels,directInference,saveProvider} from '../lib/providers.mjs';
+import {completeResult} from '../lib/mcp-protocol.mjs';
 import {FULL_UI_HTML} from '../lib/console-ui.mjs';
 function database(){const sql=new DatabaseSync(':memory:');for(const file of readdirSync('drizzle').filter(x=>x.endsWith('.sql')))sql.exec(readFileSync('drizzle/'+file,'utf8'));return {sql,prepare(query){return {bind(...args){return {async first(){return sql.prepare(query).get(...args)||null},async all(){return {results:sql.prepare(query).all(...args)}},async run(){return sql.prepare(query).run(...args)}}}}},async batch(stmts){return Promise.all(stmts.map(s=>s.run()))}};}
 const catalog=[{id:'test/a',name:'A',architecture:{input_modalities:['text'],output_modalities:['text']},context_length:100000,pricing:{prompt:'0.000001',completion:'0.000002'}},{id:'test/b',name:'B',architecture:{input_modalities:['text'],output_modalities:['text']},context_length:100000,pricing:{prompt:'0.0000001',completion:'0.0000002'}}];
@@ -70,4 +71,40 @@ test('desktop settings include connection entry, clear master permission and all
  const env=await setup(),s=await readSettings(env,'alice');assert(s.layout.some(g=>g.items.some(i=>i.tool==='open_provider_setup')));assert(s.layout.some(g=>g.items.some(i=>i.tool==='apply_starter_limits')));
  const properties=s.layout.flatMap(g=>g.items.map(i=>i.property));for(const k of ['approvalMode','approvalUsd','approvalTokens','approvalModels'])assert(properties.includes(k));
  assert(s.schema.properties.enabled.description.includes('不会更换主模型或立即消费'));assert(SETTINGS_HTML.includes('连接模型 / 填写 API Key'));assert(!SETTINGS_HTML.includes('请更新桌面端'));
+});
+
+test('desktop resource loading includes required MCP 2026 cache hints via metadata and HTTP header',async()=>{
+ const env=await setup();
+ const uris=[SETTINGS_URI,'ui://model-delegator/settings-v3-1.html','ui://model-delegator/settings-v2.html','ui://model-delegator/console-v3-1.html','ui://model-delegator/console-v3.html'];
+ for(const method of ['server/discover','tools/list','resources/list','resources/read'])for(const transport of ['metadata','header']){
+  for(const uri of method==='resources/read'?uris:[undefined]){
+   const params={...(uri?{uri}:{}),...(transport==='metadata'?{_meta:{'io.modelcontextprotocol/protocolVersion':'2026-07-28'}}:{})};
+   const request=req({jsonrpc:'2.0',id:1,method,params},false);if(transport==='header')request.headers.set('mcp-protocol-version','2026-07-28');
+   const body=await(await mcp(request,env)).json();assert(!body.error);
+   const r=body.result;assert.equal(r.resultType,'complete');assert.equal(r.ttlMs,0);assert.equal(r.cacheScope,'private');
+   if(uri){assert.equal(r.contents[0].uri,uri);assert.equal(r.contents[0].mimeType,'text/html;profile=mcp-app');assert(r.contents[0].text.startsWith('<!doctype html>'));}
+  }
+ }
+ for(const method of ['resources/read','resources/list','tools/list']){
+  const r=(await(await mcp(req({jsonrpc:'2.0',id:2,method,params:{uri:SETTINGS_URI}},false),env)).json()).result;
+  for(const field of ['resultType','ttlMs','cacheScope'])assert.equal(r[field],undefined);
+ }
+ const r=(await(await mcp(req({jsonrpc:'2.0',id:3,method:'tools/call',params:{name:'get_status',_meta:{'io.modelcontextprotocol/protocolVersion':'2026-07-28'}}}),env)).json()).result;
+ assert.equal(r.resultType,'complete');assert.equal(r.ttlMs,undefined);assert.equal(r.cacheScope,undefined);
+});
+
+test('all protocol cacheable operations have mandatory hints without caching mutable tool results',()=>{
+ for(const method of ['server/discover','tools/list','prompts/list','resources/list','resources/templates/list','resources/read']){
+  assert.deepEqual(completeResult(method,'2026-07-28',{}),{resultType:'complete',ttlMs:0,cacheScope:'private'});
+ }
+ assert.deepEqual(completeResult('tools/call','2026-07-28',{isError:true}),{isError:true,resultType:'complete'});
+ assert.deepEqual(completeResult('initialize','2026-07-28',{protocolVersion:'2026-07-28'}),{protocolVersion:'2026-07-28'});
+});
+
+test('failed provider verification does not store a key or leak upstream errors',async()=>{
+ const env=await setup();let requests=0;
+ await assert.rejects(saveProvider(env,'alice',{provider:'anthropic',apiKey:'test-private-key'},async()=>{requests++;throw Error('test-private-key upstream network failure')}),e=>e.status===502&&!e.message.includes('test-private-key')&&e.message.includes('未保存密钥'));
+ assert.equal(requests,1);assert.equal(env.DB.sql.prepare('SELECT COUNT(*) AS n FROM provider_keys').get().n,0);
+ for(const payload of [{error:{message:'private upstream'}},{data:{invalid:true}}])await assert.rejects(providerModels('deepseek','test-private-key',async()=>Response.json(payload)),/目录格式无效/);
+ await assert.rejects(providerModels('deepseek','test-private-key',async()=>new Response('',{status:401})),/HTTP 401/);
 });

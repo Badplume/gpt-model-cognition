@@ -1,16 +1,17 @@
 {
-  "version": "3.1.0",
-  "created_utc": "2026-10-16T10:48:06.280Z",
-  "source_commit": "0a941c86a2efe60fbf6777c2aef6d78ab459ecef",
+  "version": "3.1.1",
+  "created_utc": "2026-10-16T11:21:02.210Z",
+  "source_commit": "525b614c70e42f01aa87602cf4befb6ddb164306",
   "plugin_release": "pluginrel_6ad20080fc9081918657fa9b5021432c",
   "repository": "Badplume/model-cognition-hub",
   "validation": {
-    "mock_tests_passed": 29,
+    "mock_tests_passed": 32,
     "typecheck": "passed",
     "production_build": "passed",
     "production_deployment": "succeeded",
     "real_provider_inference": "not_run_no_api_key",
-    "native_desktop_render": "pending_host_verification"
+    "native_desktop_render": "verified_codex_mcp_app_setup_and_full_console",
+    "native_settings_modal": "same_resource_fixed_user_reopen_required"
   },
   "excluded": [
     ".openai/hosting.json",
@@ -32,7 +33,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "f24ff854301f8165c1642619af0567a9c3b5cf2815e2bbb670c587d59c9108b1"
+      "sha256": "0e1452c5b75646e14edc144d246a1817950853f0fed311f7e08b5224e28c6385"
     },
     {
       "path": "app/api/config/route.ts",
@@ -412,7 +413,7 @@
     },
     {
       "path": "lib/client-api.ts",
-      "sha256": "c71a40b50fd56d05a3446d41af64f81ecce7d41ffee76985204ce4d237f28752"
+      "sha256": "bf0a2a496c887eb28044bcc0db524af9db04a0fff114b06534fce068e5fb5cb9"
     },
     {
       "path": "lib/connector-context.ts",
@@ -436,15 +437,15 @@
     },
     {
       "path": "lib/console-ui.mjs",
-      "sha256": "58f4a32dd62114b2174acacf3f96853b158968d588d334421a7b5ffe2edaf2e9"
+      "sha256": "44a48c7568851b4d9cff8fc2c58d84610ea7848cef03ee1858042d768ae3ef58"
     },
     {
       "path": "lib/delegator.mjs",
-      "sha256": "10ca8a39580dadb6d297e1000606bd88e0d2863b6b0180bdfcfe30acec3d72fc"
+      "sha256": "8992541109907470ce57ac2cb8e15ab1577a61daf415b4f7c3656ef5a8fbc8c5"
     },
     {
       "path": "lib/desktop-settings-ui.mjs",
-      "sha256": "ed622574a82ff33fe3231e4eb4294a551850698a649cf7f3bc1c858d83e1825f"
+      "sha256": "5ad9768072f1162e1914541a8b2c8b69af9b4d7278489d5f315e92cd2703f7b5"
     },
     {
       "path": "lib/presets.mjs",
@@ -452,7 +453,7 @@
     },
     {
       "path": "lib/providers.mjs",
-      "sha256": "2041d721603250767b12037a195b92c7224566ad436fc015ac7f109c29c65537"
+      "sha256": "76b82da360d53dfa25462499d8e561c649b5408a9445a3a9d06b7dbf510ab091"
     },
     {
       "path": "lib/settings-ui.mjs",
@@ -472,7 +473,7 @@
     },
     {
       "path": "package.json",
-      "sha256": "adaee58feb122c604ee7a4a0aa72535de6de949283b90874c102e5cd204eeb9f"
+      "sha256": "813cd8bdfb7e4fb0721ea59b668bc3d2640e3f89fef46064d8fa8a5819d3fe7f"
     },
     {
       "path": "pnpm-lock.yaml",
@@ -508,7 +509,7 @@
     },
     {
       "path": "scripts/build-widget.mjs",
-      "sha256": "df35e8e704e74c5f2f6a5bb5a408639c8a5fc7d760adc79a89bd0ba1ae92d2e9"
+      "sha256": "92647a3fadcaafa17ca87a65f24a64e4c2efc403b070562db55f69beb78e3253"
     },
     {
       "path": "scripts/connector-preview/connector-preview-session.mjs",
@@ -580,7 +581,7 @@
     },
     {
       "path": "tests/delegator.test.mjs",
-      "sha256": "28504867caf97982989418acd4f7b600b79a0a3cf790d1ea44dff7cf2673afa5"
+      "sha256": "ab79351c137350a4b724016928f6cbf3b8b650ee08601cf39fb5cc67cd18d8ee"
     },
     {
       "path": "tsconfig.json",
@@ -629,6 +630,10 @@
     {
       "path": "plugin/skills/provider-setup/SKILL.md",
       "sha256": "999024963d8d8f47a02c202f9b779aa4a31d7258dd31a4d144dc6860edcbd38e"
+    },
+    {
+      "path": "lib/mcp-protocol.mjs",
+      "sha256": "2c7473bd1a8328d6e32d07be87c62f1f55791939b95c0ef2a29ee464784a9eb5"
     }
   ]
 }

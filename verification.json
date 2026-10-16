@@ -1,10 +1,10 @@
 {
-  "version": "3.1.0",
+  "version": "3.1.1",
   "date": "2026-10-16",
-  "published_source_commit": "0a941c86a2efe60fbf6777c2aef6d78ab459ecef",
+  "published_source_commit": "525b614c70e42f01aa87602cf4befb6ddb164306",
   "plugin_release": "pluginrel_6ad20080fc9081918657fa9b5021432c",
   "verified": {
-    "mock_tests": 29,
+    "mock_tests": 32,
     "typecheck": true,
     "production_build": true,
     "production_deployment": true,
@@ -16,11 +16,16 @@
     "starter_limits_saved": true,
     "missing_provider_blocks_inference": true,
     "used_or_reserved_usd": 0,
-    "private_github_backup": true
+    "private_github_backup": true,
+    "native_embedded_setup_render": true,
+    "native_full_console_render": true,
+    "native_bridge_read_settings": true,
+    "mcp_2026_required_cache_fields": true
   },
   "not_verified": [
-    "Windows native desktop window rendering",
+    "Exact plugin-settings modal requires user to close and reopen",
     "Real inference with a user-supplied provider API key"
   ],
-  "credentials_in_backup": false
+  "credentials_in_backup": false,
+  "observed_issue": "Fixed missing ttlMs and cacheScope fields rejected by desktop resource validation."
 }
