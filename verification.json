@@ -1,10 +1,10 @@
 {
-  "version": "3.1.1",
+  "version": "3.1.2",
   "date": "2026-10-16",
-  "published_source_commit": "525b614c70e42f01aa87602cf4befb6ddb164306",
+  "published_source_commit": "c976b5c4001d639eee2c43997f4139e1cff4d1e8",
   "plugin_release": "pluginrel_6ad20080fc9081918657fa9b5021432c",
   "verified": {
-    "mock_tests": 32,
+    "mock_tests": 40,
     "typecheck": true,
     "production_build": true,
     "production_deployment": true,
@@ -20,12 +20,18 @@
     "native_embedded_setup_render": true,
     "native_full_console_render": true,
     "native_bridge_read_settings": true,
-    "mcp_2026_required_cache_fields": true
+    "mcp_2026_required_cache_fields": true,
+    "worker_runtime_tests": 3,
+    "deepseek_production_reachability": true,
+    "probe_credentials_sent": false,
+    "probe_inference_called": false,
+    "deepseek_key_saved": true,
+    "deepseek_live_model_directory": true,
+    "user_confirmed_deepseek_connection": true
   },
   "not_verified": [
-    "Exact plugin-settings modal requires user to close and reopen",
-    "Real inference with a user-supplied provider API key"
+    "Real paid provider inference"
   ],
   "credentials_in_backup": false,
-  "observed_issue": "Fixed missing ttlMs and cacheScope fields rejected by desktop resource validation."
+  "observed_issue": "Fixed workerd's unsupported redirect:error option for official catalog and inference calls. Use manual plus explicit 3xx rejection."
 }

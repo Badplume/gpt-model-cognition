@@ -7,7 +7,7 @@ import {DEFAULTS,seal,unseal,validateSettings,consult,mcp,checkOrigin,selectMode
 import {SETTINGS_HTML,SETTINGS_URI} from '../lib/settings-ui.mjs';
 import {Script} from 'node:vm';
 import {prepareRequest,decideRequest,executeRequest,getRequest} from '../lib/workload.mjs';
-import {providerModels,directInference,saveProvider} from '../lib/providers.mjs';
+import {providerModels,directInference,saveProvider,checkProviderConnection,authHeaders} from '../lib/providers.mjs';
 import {completeResult} from '../lib/mcp-protocol.mjs';
 import {FULL_UI_HTML} from '../lib/console-ui.mjs';
 function database(){const sql=new DatabaseSync(':memory:');for(const file of readdirSync('drizzle').filter(x=>x.endsWith('.sql')))sql.exec(readFileSync('drizzle/'+file,'utf8'));return {sql,prepare(query){return {bind(...args){return {async first(){return sql.prepare(query).get(...args)||null},async all(){return {results:sql.prepare(query).all(...args)}},async run(){return sql.prepare(query).run(...args)}}}}},async batch(stmts){return Promise.all(stmts.map(s=>s.run()))}};}
@@ -103,8 +103,40 @@ test('all protocol cacheable operations have mandatory hints without caching mut
 
 test('failed provider verification does not store a key or leak upstream errors',async()=>{
  const env=await setup();let requests=0;
- await assert.rejects(saveProvider(env,'alice',{provider:'anthropic',apiKey:'test-private-key'},async()=>{requests++;throw Error('test-private-key upstream network failure')}),e=>e.status===502&&!e.message.includes('test-private-key')&&e.message.includes('未保存密钥'));
+ await assert.rejects(saveProvider(env,'alice',{provider:'anthropic',apiKey:'test-private-key'},async()=>{requests++;throw Error('test-private-key upstream network failure')}),e=>e.status===502&&!e.message.includes('test-private-key')&&e.message.includes('密钥未保存'));
  assert.equal(requests,1);assert.equal(env.DB.sql.prepare('SELECT COUNT(*) AS n FROM provider_keys').get().n,0);
  for(const payload of [{error:{message:'private upstream'}},{data:{invalid:true}}])await assert.rejects(providerModels('deepseek','test-private-key',async()=>Response.json(payload)),/目录格式无效/);
  await assert.rejects(providerModels('deepseek','test-private-key',async()=>new Response('',{status:401})),/HTTP 401/);
+});
+
+test('network diagnostics use only fixed official endpoints and never send credentials or infer',async()=>{
+ let calls=0;const result=await checkProviderConnection('deepseek',async(url,init)=>{calls++;assert.equal(url,'https://api.deepseek.com/models');assert.equal(init.redirect,'manual');assert.equal(init.headers.Authorization,undefined);assert.equal(init.headers['x-api-key'],undefined);assert.equal(init.body,undefined);return new Response('',{status:401})});
+ assert.equal(result.ok,true);assert.equal(result.http_status,401);assert.equal(result.credentials_sent,false);assert.equal(result.inference_called,false);assert.equal(calls,1);
+ await assert.rejects(checkProviderConnection('https://example.invalid',()=>{throw Error('must not run')}),/不支持/);
+ const failure=await checkProviderConnection('deepseek',async()=>{throw Error('private upstream details')});assert.equal(failure.reason,'network_error');assert(!JSON.stringify(failure).includes('private upstream details'));
+});
+
+test('provider redirects are never followed, retried, saved or reported as bad API keys',async()=>{
+ const env=await setup();let calls=0;const redirected=async()=>{calls++;return new Response('',{status:307,headers:{location:'https://example.invalid/?private=never-expose'}})};
+ await assert.rejects(saveProvider(env,'alice',{provider:'deepseek',apiKey:'test-private-key'},redirected),e=>e.status===502&&e.message.includes('跳转')&&!e.message.includes('never-expose'));
+ assert.equal(calls,1);assert.equal(env.DB.sql.prepare('SELECT COUNT(*) AS n FROM provider_keys').get().n,0);
+ const state=await checkProviderConnection('deepseek',redirected);assert.equal(state.reason,'redirect_blocked');assert.equal(calls,2);
+ await assert.rejects(directInference({provider:'deepseek',modelId:'test-model'},'test-private-key','system','task',{maxTokens:256,timeoutSec:15},redirected),e=>e.name==='OfficialRedirectError');assert.equal(calls,3);
+});
+
+test('malformed keys fail before any network request and do not expose their value',async()=>{
+ for(const key of ['Bearer private-key','private\nkey','private\u200bkey','私有密钥']){
+  let calls=0;await assert.rejects(providerModels('deepseek',key,()=>{calls++;throw Error('unexpected')}),e=>e.status===400&&!e.message.includes(key));assert.equal(calls,0);
+ }
+ assert.equal(authHeaders('deepseek','test-key').Authorization,'Bearer test-key');
+});
+
+test('timeout and service denial stay distinct from credential verification',async()=>{
+ await assert.rejects(providerModels('deepseek','test-key',async()=>{throw new DOMException('hidden','TimeoutError')}),e=>e.status===504&&e.message.includes('超时'));
+ for(const status of [403,429,503]){const s=await checkProviderConnection('deepseek',async()=>new Response('',{status}));assert.equal(s.reachable,true);assert.equal(s.ok,false);assert.equal(s.http_status,status);}
+});
+
+test('connection diagnostic is an app-only read-only tool with no credential argument',async()=>{
+ const env=await setup(),r=await(await mcp(req({jsonrpc:'2.0',id:1,method:'tools/list'},false),env)).json();
+ const tool=r.result.tools.find(t=>t.name==='check_provider_connection');assert.deepEqual(tool._meta.ui.visibility,['app']);assert.equal(tool.annotations.readOnlyHint,true);assert.equal(tool.inputSchema.properties.apiKey,undefined);
 });

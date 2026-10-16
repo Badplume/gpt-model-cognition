@@ -1,17 +1,21 @@
 {
-  "version": "3.1.1",
-  "created_utc": "2026-10-16T11:21:02.210Z",
-  "source_commit": "525b614c70e42f01aa87602cf4befb6ddb164306",
+  "version": "3.1.2",
+  "created_utc": "2026-10-16T11:42:19.836Z",
+  "source_commit": "c976b5c4001d639eee2c43997f4139e1cff4d1e8",
   "plugin_release": "pluginrel_6ad20080fc9081918657fa9b5021432c",
   "repository": "Badplume/model-cognition-hub",
   "validation": {
-    "mock_tests_passed": 32,
+    "mock_tests_passed": 40,
     "typecheck": "passed",
     "production_build": "passed",
     "production_deployment": "succeeded",
-    "real_provider_inference": "not_run_no_api_key",
+    "real_provider_inference": "not_run",
     "native_desktop_render": "verified_codex_mcp_app_setup_and_full_console",
-    "native_settings_modal": "same_resource_fixed_user_reopen_required"
+    "native_settings_modal": "same_resource_fixed_user_reopen_required",
+    "worker_runtime_tests_passed": 3,
+    "deepseek_production_reachability": "passed_without_credentials_HTTP401",
+    "real_provider_key_verification": "passed_user_confirmed_and_server_status",
+    "deepseek_live_model_directory": "passed"
   },
   "excluded": [
     ".openai/hosting.json",
@@ -33,7 +37,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "0e1452c5b75646e14edc144d246a1817950853f0fed311f7e08b5224e28c6385"
+      "sha256": "c4e41cf59737f2c6008bce6d50fa0da4182118391d239451f83ab756db55d635"
     },
     {
       "path": "app/api/config/route.ts",
@@ -45,7 +49,7 @@
     },
     {
       "path": "app/api/providers/route.ts",
-      "sha256": "4a19796c9a75b8744d39c3590d9503160e44b27e92e1d6ff4ddf696bf368e186"
+      "sha256": "06e243f244dcd267cfd8af230a10cbc3f1a5154bed018c71da8d13800cbc806f"
     },
     {
       "path": "app/api/requests/route.ts",
@@ -105,7 +109,7 @@
     },
     {
       "path": "components/provider-manager.tsx",
-      "sha256": "47e0ad62d117bf7dfda406b4e9bf2336f6d42e33beaaf133c0b27ba55a261499"
+      "sha256": "769853aca1ab8315095741fbc9c5b24532f08cd1cfc4921d8b02fa1e37b7fbcd"
     },
     {
       "path": "components/request-console.tsx",
@@ -413,7 +417,7 @@
     },
     {
       "path": "lib/client-api.ts",
-      "sha256": "bf0a2a496c887eb28044bcc0db524af9db04a0fff114b06534fce068e5fb5cb9"
+      "sha256": "6b40eba6f9e7a863f2162888d928e94d3a7fc2a8b426d8480aa1e30563aa0475"
     },
     {
       "path": "lib/connector-context.ts",
@@ -437,11 +441,11 @@
     },
     {
       "path": "lib/console-ui.mjs",
-      "sha256": "44a48c7568851b4d9cff8fc2c58d84610ea7848cef03ee1858042d768ae3ef58"
+      "sha256": "703dd2b951e1994644e8f6d9375f7d56623b7b057130a1c9c6e22a5ce5a41577"
     },
     {
       "path": "lib/delegator.mjs",
-      "sha256": "8992541109907470ce57ac2cb8e15ab1577a61daf415b4f7c3656ef5a8fbc8c5"
+      "sha256": "d1fbd74445d5569f35816716f2341c13ef5b5a35a53e8f9ea8474d0497239751"
     },
     {
       "path": "lib/desktop-settings-ui.mjs",
@@ -453,7 +457,7 @@
     },
     {
       "path": "lib/providers.mjs",
-      "sha256": "76b82da360d53dfa25462499d8e561c649b5408a9445a3a9d06b7dbf510ab091"
+      "sha256": "ec3404c18342657820c958a763768c34c3553decb4673ad5ff0e159ba9c86289"
     },
     {
       "path": "lib/settings-ui.mjs",
@@ -473,7 +477,7 @@
     },
     {
       "path": "package.json",
-      "sha256": "813cd8bdfb7e4fb0721ea59b668bc3d2640e3f89fef46064d8fa8a5819d3fe7f"
+      "sha256": "1b401644034a56e26b91626a64d97f802146493899f1cf1a6e9f82ae9983e718"
     },
     {
       "path": "pnpm-lock.yaml",
@@ -509,7 +513,7 @@
     },
     {
       "path": "scripts/build-widget.mjs",
-      "sha256": "92647a3fadcaafa17ca87a65f24a64e4c2efc403b070562db55f69beb78e3253"
+      "sha256": "33db52f8d4c8a421eab72ddb3d37dd91926e7a767d44c74ef3142aadfee31440"
     },
     {
       "path": "scripts/connector-preview/connector-preview-session.mjs",
@@ -581,7 +585,7 @@
     },
     {
       "path": "tests/delegator.test.mjs",
-      "sha256": "ab79351c137350a4b724016928f6cbf3b8b650ee08601cf39fb5cc67cd18d8ee"
+      "sha256": "4002f8ca53a6bca90b2b962218bf5547f372c5a60648bcb442395664acdb0ff8"
     },
     {
       "path": "tsconfig.json",
@@ -634,6 +638,18 @@
     {
       "path": "lib/mcp-protocol.mjs",
       "sha256": "2c7473bd1a8328d6e32d07be87c62f1f55791939b95c0ef2a29ee464784a9eb5"
+    },
+    {
+      "path": "lib/official-fetch.mjs",
+      "sha256": "6b2c8b084640d092dd36c0ba534fee5a4b89cf98d2e59564ec580e2452bc356c"
+    },
+    {
+      "path": "tests/fixtures/provider-worker.mjs",
+      "sha256": "c4d0921f418565ef6f4cd59d5e25d042bb6a14deecfa6e74e0bedaad83f5d442"
+    },
+    {
+      "path": "tests/provider-runtime.test.mjs",
+      "sha256": "968d2a84b5489c39e55944c6f2748d8effb55fbaec460f5520a3cddd22d38bcb"
     }
   ]
 }
