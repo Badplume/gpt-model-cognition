@@ -1,101 +1,9 @@
 {
-  "version": "3.3.1",
-  "created_utc": "2026-10-16T14:30:42.777Z",
-  "source_commit": "9b023cbfedbb1d2e4898b99eea803f9aa9fc4ada",
+  "version": "3.4.0",
+  "created_utc": "2026-10-16T15:19:07.358Z",
+  "source_commit": "a8edd1f3e3044a756f1019a10447dbd604fca79f",
   "repository": "Badplume/model-cognition-hub",
-  "mode": "incremental source update over audited history; public open-source release",
-  "validation": {
-    "version": "3.3.1",
-    "source_commit": "9b023cbfedbb1d2e4898b99eea803f9aa9fc4ada",
-    "plugin_release": "pluginrel_6ad2348ae3008191ae7f365b063af95f",
-    "deployment": "appgdep_6ad234dfe5bc819186d8a6b33ff567a9",
-    "production_deployment": "succeeded",
-    "tests": 63,
-    "typecheck": "passed",
-    "build": "passed",
-    "native_ui": {
-      "host": "Codex MCP App, actual authenticated production service",
-      "CNY_prices": "passed",
-      "DeepSeek_preserved": "passed",
-      "Gemini_diagnostic": "passed",
-      "version_observed": "3.3.0"
-    },
-    "production": {
-      "version": "3.3.0",
-      "pricingStatus": 200,
-      "baseCurrency": "CNY",
-      "pricingCurrency": "CNY",
-      "fxDate": "2026-10-15",
-      "cnyPerUsd": 6.691024268379729,
-      "deepseek": {
-        "status": 200,
-        "prices": [
-          {
-            "modelId": "deepseek-flash",
-            "currency": "CNY",
-            "input": 2.0073072805139187,
-            "output": 8.029229122055675,
-            "available": true,
-            "original": {
-              "currency": "USD",
-              "input": 0.3,
-              "output": 1.2
-            },
-            "fxDate": "2026-10-15"
-          },
-          {
-            "modelId": "deepseek-v4-pro",
-            "currency": "CNY",
-            "input": 8.832152034261242,
-            "output": 26.496456102783725,
-            "available": true,
-            "original": {
-              "currency": "USD",
-              "input": 1.32,
-              "output": 3.96
-            },
-            "fxDate": "2026-10-15"
-          }
-        ]
-      },
-      "geminiPrices": {
-        "status": 200,
-        "count": 10,
-        "allCny": true
-      },
-      "geminiDiagnostic": {
-        "status": 200,
-        "data": {
-          "provider": "gemini",
-          "endpoint": "https://generativelanguage.googleapis.com/v1beta/models?pageSize=1000",
-          "reachable": true,
-          "ok": true,
-          "http_status": 403,
-          "reason": "authentication_required",
-          "elapsed_ms": 64,
-          "credentials_sent": false,
-          "inference_called": false,
-          "message": "Google 官方服务连接正常（未携带密钥，返回预期的身份验证提示）。可填写 AI Studio API Key 继续验证；本检查未验证账户权限或推理可用性。"
-        }
-      },
-      "serviceCannotReadUserKeys": true,
-      "inferenceCalled": false
-    },
-    "github_history_audit": {
-      "commits": 9,
-      "uniqueBlobs": 280,
-      "checkedIncludingArchiveEntries": 296,
-      "potentialSecretsFound": 0
-    },
-    "inference": "not run; user confirmed successful Gemini API Key connection after deployment",
-    "audience": "repository prepared for public release; deployed service remains owner-private",
-    "web_ui": {
-      "version": "3.3.1",
-      "title": "为 GPT 配备外部专家。",
-      "title_verified": true
-    },
-    "gemini_key_connection": "human reported success; no paid inference performed"
-  },
+  "mode": "incremental public source backup",
   "excluded": [
     ".openai/hosting.json",
     "tsconfig.tsbuildinfo",
@@ -108,136 +16,108 @@
   ],
   "files": [
     {
-      "path": "LICENSE",
-      "sha256": "c21b4dcd63a61405d9ad3798c57f6a1e7c5da047d64f00e056bcd5a6031422e7"
-    },
-    {
       "path": "README.md",
-      "sha256": "c9ddec9f40f8e801cff488038cec08a6bbdc2a9e92f99b8d2141e98781f2cde2"
+      "sha256": "08c6f21a720b4f068055cdc46b9bc5c7b745129c8c66a46783336987b947c5bc"
     },
     {
-      "path": "SECURITY.md",
-      "sha256": "63bb7a71560ae609e48b12b32e78122bea06338db7f1004e5bdd43c4117ab328"
-    },
-    {
-      "path": "THIRD_PARTY_NOTICES.md",
-      "sha256": "0e78e3788b9494def936d7db430771c06e04b939b9536f31210d09be04125e21"
-    },
-    {
-      "path": "app/api/providers/route.ts",
-      "sha256": "1a08aeb22a3c807b9a098f0630c6df028d684cabb7912f0d50d48b7173bb1146"
+      "path": "app/api/models/route.ts",
+      "sha256": "70c28a273b4e699a6ab9764ef1f1c3c66ed94d1731b235f3960330c8dc4eed47"
     },
     {
       "path": "app/page.tsx",
-      "sha256": "b971c965100f4ea8456f0f4d1b7ebd4194986ff7cefdc56c26a94d348dcde8dd"
+      "sha256": "9c31c941bdb12ff7b9c8d06e169a1abbc97e0dcb724977028b46a119d697a489"
+    },
+    {
+      "path": "components/official-rates.tsx",
+      "sha256": "fddbd481d358a7be7c4f9d9a85f8916c2e2869103866ce5d0915c69bd3393d78"
     },
     {
       "path": "components/pricing-panel.tsx",
-      "sha256": "7a4b6d7bed7fdd8ac41927b6d4ad17b56f8690640bfed43765195c09ce3a3560"
+      "sha256": "54fec438df6c0d50d671ba0d8827d45e0f16cc8f40758642394cba238f956cee"
     },
     {
       "path": "components/provider-manager.tsx",
-      "sha256": "95528d241c461a4bb0fad2d1d0cd4f4de95745e8a0178ae28234d99c12afc22e"
-    },
-    {
-      "path": "components/request-console.tsx",
-      "sha256": "32e30494e2e569b32c45ada60d864cd0e597bb4a4daf909e50004a5f187dd860"
-    },
-    {
-      "path": "docs/deployment.md",
-      "sha256": "30a75b03d5bffe809613d4e1e2b97898d74d367c556c5537ac615cf017fb68e0"
+      "sha256": "fa40ab8fa434c7b97d6e314d081b978813b8c395028aded26db915ab7229d382"
     },
     {
       "path": "lib/client-api.ts",
-      "sha256": "db604cc3ce6e7d94880566ec316e922b4b3ce4188661df6d04c957ee99d1a07e"
+      "sha256": "248426fe385aa616d7e55d7462142a71373fcf148f98a2bda05b29fd9090a749"
     },
     {
       "path": "lib/console-ui.mjs",
-      "sha256": "6b7ccf7aeee2467221410056577de2bd2380872a42c06fbdfdb7ad94a159c828"
+      "sha256": "96d0b201db52663ccac8f00e40143c7d76818ab6aada84228983c5cde5be364b"
     },
     {
       "path": "lib/delegator.mjs",
-      "sha256": "b206a604741bd6af4e353b5c1948a8a798ebeb93e46f87d21ca95d36bdde84aa"
+      "sha256": "234e45874b641b7f24c105cf8a3ca2891ff9f8ed032bb970ac73845f888b84d7"
     },
     {
       "path": "lib/desktop-settings-ui.mjs",
-      "sha256": "e52c2a86c83b6b047dfc61261a583fc0a5309551d95b8476635b1bc7cae9c998"
+      "sha256": "94ded0e8d91bb073f703c533bcda4efcb5f1ecc7fd5daf1db1f93c1c208688d8"
     },
     {
-      "path": "lib/gemini.mjs",
-      "sha256": "80783e38d2bf0763a48234e2f1ba7a443c489d86bc3c0fa8e5867735a359dacd"
+      "path": "lib/price-display.mjs",
+      "sha256": "734d517d64522f422461744b5fc50b925d4d72c2d4f5fa32126d5e1e004776f1"
     },
     {
-      "path": "lib/money.mjs",
-      "sha256": "21469365e8f08977d23e9d03d09e16c9e0caa14040bb2551201d73459406152a"
+      "path": "lib/pricing-global.mjs",
+      "sha256": "63e26aab23d6f3e3b747457a2147d8c32d4e2e044fa3a16f5ad56df55817f3cc"
+    },
+    {
+      "path": "lib/pricing-qwen-deepseek.mjs",
+      "sha256": "84b877e63af48039a05e8901b075a2c0aae4d9b27d3bf944ca66ad74c6bb9cd8"
     },
     {
       "path": "lib/pricing.mjs",
-      "sha256": "85867802600df6170b3d8ffa893d480bc826b4293f160afa4a77df578bfe2158"
-    },
-    {
-      "path": "lib/provider-registry.mjs",
-      "sha256": "329752358bfb08ca3a993d94bbfa9769f1ec7a3fffd9e50449347cab07503487"
-    },
-    {
-      "path": "lib/providers.mjs",
-      "sha256": "09f6934b0ae6aa950b479e6a20866d29d05708b12c04338863a33f35a1eed8fb"
+      "sha256": "056c7c99bd7e15dd1b2c337c494091decb4c62ed082a85b60cd3a63210e4ca8e"
     },
     {
       "path": "package.json",
-      "sha256": "a970e2326a92f73cf6de5d3c7726fb5d1df755acd4a7b0d5fe53e6a252c0885d"
-    },
-    {
-      "path": "plugin/.app.json",
-      "sha256": "a485e1edbf7a6ed77ff3e436f04d5ac80708736b4e8d0097c66b6bbd9aab5e74"
+      "sha256": "e8730b5d67439a5ac256b4ec5b8bfd6c6f4db395c7f4be85934ce9fe25928062"
     },
     {
       "path": "plugin/.codex-plugin/plugin.json",
-      "sha256": "fd966251a3374a646e4507d40296edbf1261faa16b6ff412d555a236887ccc74"
+      "sha256": "c0b9dc2468abbf56a63eec1db6de30e3eaeb5991bc5e16c0f51366d30917fa29"
     },
     {
       "path": "plugin/plugin.json",
-      "sha256": "1f325c7cd0241db7edc7a3aec09583110e9f95dfb97a1049b3331959bc13ed20"
-    },
-    {
-      "path": "plugin/skills/manual-model-call/SKILL.md",
-      "sha256": "1d7881323fad00aa5f483e16b19c047c1d727f25c6561fa7764d4b0463f1cc8e"
+      "sha256": "00f8c3665538c53d5077dbb852ef41bce8993e74725028982515a6a779c5faaa"
     },
     {
       "path": "plugin/skills/model-budget-approval/SKILL.md",
-      "sha256": "15294d6b445f99f706c522edace8667197030800eab89dd497f737d906a72650"
-    },
-    {
-      "path": "plugin/skills/model-orchestration/SKILL.md",
-      "sha256": "c42828ad0de89e6cfab25496d7cfe560d4f28a17d57c9eb6434e59183d8f8a60"
-    },
-    {
-      "path": "plugin/skills/model-orchestration/agents/openai.yaml",
-      "sha256": "1c83c2bac924b5e521f2cc9dcf3d6cf3e26def55dd84096ea45e8de771fd8f63"
+      "sha256": "a954cba81c6d5eab2043bb17e896553a4effe963c6d1cbf1f28782c2d4a9759d"
     },
     {
       "path": "plugin/skills/pricing-updates/SKILL.md",
-      "sha256": "3ae099eba345800ac1b3efe08ac98fd57c7d76990c295352f666f60e2a8eb0dc"
+      "sha256": "ca8fc13db37e248c8dad86342b75dc7101ebc5e9f389ef5ce44cf10e57b8937b"
     },
     {
       "path": "plugin/skills/provider-setup/SKILL.md",
-      "sha256": "86c1a57b6027541a1602d63c977b54a5be4b17b03b725ec9a9d897492605fce6"
+      "sha256": "2c1a6099b61b4a49d6f263e1b1202dfb5c6bb9c8e7a22b40c35501eb78e20b36"
     },
     {
       "path": "scripts/build-widget.mjs",
-      "sha256": "16272633daef5bdc5cf6188f0f9c170e2d44f31153c68b93565aa115a49ff7c1"
+      "sha256": "90a7d9dcf877ecdf4241dd704eeb680dfca46522b21fd781623a59cfac6ae999"
     },
     {
-      "path": "tests/gemini.test.mjs",
-      "sha256": "8a24c2f23a06a4815004464c8da4ba61be9c551ab59cdc3395b8cf137f830dcc"
+      "path": "tests/delegator.test.mjs",
+      "sha256": "454512e18d62a00572eb83465746ff0fc7a5e726770c7b3cb4a6651520c1fd21"
+    },
+    {
+      "path": "tests/domestic-pricing.test.mjs",
+      "sha256": "1f8a3d0bc0fb982cc1f1a95ac4f328742bb625b3bcd542917bd4b69fcc930be4"
+    },
+    {
+      "path": "tests/fixtures/public-pricing/deepseek-current.html",
+      "sha256": "d4c4f2c47faa95c76a3e9ea433a6b7cdd9edd553baeb4fa3538907521789aef5"
+    },
+    {
+      "path": "tests/fixtures/public-pricing/global.test.mjs",
+      "sha256": "3b166a63b7d843a2c05f35b40f5b2392498ad2561fe0b76dcc2f49622806f55f"
     },
     {
       "path": "tests/pricing.test.mjs",
-      "sha256": "7daaa5f962d99ac48845d77195f8c79b8e1016e96755e4fe282b839021d4b4fc"
-    },
-    {
-      "path": "tests/provider-runtime.test.mjs",
-      "sha256": "88248fd27ac6704fcb89908ab5dfae335fe00b5e363b2e3d75a2bb9b0805f98e"
+      "sha256": "3c319163016e6281e76ef8181f4d5426a9d015d19f757cc7f635d2f227af6ac5"
     },
     {
       "path": "skills/manual-model-call/SKILL.md",
@@ -245,7 +125,7 @@
     },
     {
       "path": "skills/model-budget-approval/SKILL.md",
-      "sha256": "15294d6b445f99f706c522edace8667197030800eab89dd497f737d906a72650"
+      "sha256": "a954cba81c6d5eab2043bb17e896553a4effe963c6d1cbf1f28782c2d4a9759d"
     },
     {
       "path": "skills/model-orchestration/SKILL.md",
@@ -257,19 +137,19 @@
     },
     {
       "path": "skills/pricing-updates/SKILL.md",
-      "sha256": "3ae099eba345800ac1b3efe08ac98fd57c7d76990c295352f666f60e2a8eb0dc"
+      "sha256": "ca8fc13db37e248c8dad86342b75dc7101ebc5e9f389ef5ce44cf10e57b8937b"
     },
     {
       "path": "skills/provider-setup/SKILL.md",
-      "sha256": "86c1a57b6027541a1602d63c977b54a5be4b17b03b725ec9a9d897492605fce6"
+      "sha256": "2c1a6099b61b4a49d6f263e1b1202dfb5c6bb9c8e7a22b40c35501eb78e20b36"
     },
     {
       "path": "verification.json",
-      "sha256": "8f71d9f652d8b3ff73b33ec34404914fc0c4bb9ef6dde0230b1eb1827389a733"
+      "sha256": "4b76c87f0b7955b5f371730e88324a56a3da315547648b6646258679b6b714e3"
     },
     {
-      "path": "maintenance/3.3.0.md",
-      "sha256": "90f78d98c8c3d7742d451898aa1252a02b26e16fb39457285d0c2b45f2d46b3d"
+      "path": "maintenance/3.4.0.md",
+      "sha256": "f0a6eddbf7c8b5ff68d413e9057e7f1bece0aab41fa3afab7c46cb1694a716cd"
     }
   ]
 }

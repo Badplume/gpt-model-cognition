@@ -1,92 +1,667 @@
 {
-  "version": "3.3.1",
-  "source_commit": "9b023cbfedbb1d2e4898b99eea803f9aa9fc4ada",
-  "plugin_release": "pluginrel_6ad2348ae3008191ae7f365b063af95f",
-  "deployment": "appgdep_6ad234dfe5bc819186d8a6b33ff567a9",
-  "production_deployment": "succeeded",
-  "tests": 63,
+  "version": "3.4.0",
+  "source_commit": "a8edd1f3e3044a756f1019a10447dbd604fca79f",
+  "plugin_release": "pluginrel_6ad23e2215708191abb2054ed615b5a9",
+  "deployment": {
+    "id": "appgdep_6ad23f35b3ac8191b1f614f346fcd710",
+    "project_id": "appgprj_6ad1d9aa9570819195153daa4cd465b9",
+    "title": "Model Delegator",
+    "version_id": "appgprj_6ad1d9aa9570819195153daa4cd465b9~appgver_58840ce20cac8191aa35c135c14cf9b5",
+    "type": "publish",
+    "status": "succeeded",
+    "url": "https://model-delegator-pleia.tangyvole32.chatgpt.site",
+    "has_mcp": true,
+    "screenshot_asset_pointer": null,
+    "provider_deployment_id": "site---6ad1d9aa9570819195153daa4cd465b9",
+    "failure_message": null,
+    "env_set_revision": 1,
+    "updated_at": "2026-10-16T15:14:12.743454+00:00"
+  },
+  "tests": 69,
   "typecheck": "passed",
   "build": "passed",
-  "native_ui": {
-    "host": "Codex MCP App, actual authenticated production service",
-    "CNY_prices": "passed",
-    "DeepSeek_preserved": "passed",
-    "Gemini_diagnostic": "passed",
-    "version_observed": "3.3.0"
-  },
-  "production": {
-    "version": "3.3.0",
-    "pricingStatus": 200,
-    "baseCurrency": "CNY",
-    "pricingCurrency": "CNY",
-    "fxDate": "2026-10-15",
-    "cnyPerUsd": 6.691024268379729,
-    "deepseek": {
-      "status": 200,
-      "prices": [
-        {
-          "modelId": "deepseek-flash",
-          "currency": "CNY",
-          "input": 2.0073072805139187,
-          "output": 8.029229122055675,
-          "available": true,
-          "original": {
-            "currency": "USD",
-            "input": 0.3,
-            "output": 1.2
+  "official_source_live_fetch": {
+    "checkedAt": "2026-10-16T15:09:03.834Z",
+    "results": [
+      {
+        "id": "deepseek",
+        "ok": true,
+        "models": 2,
+        "changed": true
+      },
+      {
+        "id": "qwen",
+        "ok": true,
+        "models": 44,
+        "changed": true
+      },
+      {
+        "id": "glm-official-cny",
+        "ok": true,
+        "models": 22,
+        "changed": true
+      },
+      {
+        "id": "kimi-official-cny",
+        "ok": true,
+        "models": 4,
+        "changed": true
+      },
+      {
+        "id": "kimi-official-usd",
+        "ok": true,
+        "models": 4,
+        "changed": true
+      },
+      {
+        "id": "anthropic",
+        "ok": true,
+        "models": 19,
+        "changed": true
+      },
+      {
+        "id": "gemini",
+        "ok": true,
+        "models": 10,
+        "changed": true
+      },
+      {
+        "id": "xai",
+        "ok": true,
+        "models": 8,
+        "changed": true
+      },
+      {
+        "id": "fx",
+        "ok": true,
+        "changed": true
+      }
+    ],
+    "domesticDirectCny": true,
+    "sources": [
+      {
+        "provider": "deepseek",
+        "url": "https://api-docs.deepseek.com/zh-cn/quick_start/pricing/"
+      },
+      {
+        "provider": "qwen",
+        "url": "https://help.aliyun.com/zh/model-studio/model-pricing"
+      },
+      {
+        "provider": "glm",
+        "url": "https://docs.bigmodel.cn/cn/guide/start/pricing.md"
+      },
+      {
+        "provider": "kimi",
+        "url": "https://platform.kimi.com/docs/pricing/chat.md"
+      },
+      {
+        "provider": "kimi_intl",
+        "url": "https://platform.kimi.ai/docs/pricing/chat.md"
+      },
+      {
+        "provider": "anthropic",
+        "url": "https://platform.claude.com/docs/en/about-claude/pricing.md"
+      },
+      {
+        "provider": "gemini",
+        "url": "https://ai.google.dev/gemini-api/docs/pricing?hl=en"
+      },
+      {
+        "provider": "xai",
+        "url": "https://docs.x.ai/developers/pricing"
+      }
+    ],
+    "deepseek": [
+      {
+        "modelId": "deepseek-flash",
+        "name": "DeepSeek-V4.1-Flash",
+        "currency": "CNY",
+        "input": 2,
+        "output": 8,
+        "cacheHit": 0.04,
+        "tariffs": [
+          {
+            "label": "空闲时段",
+            "condition": "除高峰时段外，包括周末和中国法定节假日全天；北京时间",
+            "input": 1,
+            "cacheHit": 0.02,
+            "output": 4
           },
-          "fxDate": "2026-10-15"
+          {
+            "label": "高峰时段",
+            "condition": "北京时间周一至周五（不含中国法定节假日）9:00 - 12:00、14:00 - 18:00 为高峰时段；其余时段，包括周末及中国法定节假日全天均为空闲时段。",
+            "input": 2,
+            "cacheHit": 0.04,
+            "output": 8
+          }
+        ],
+        "schedule": {
+          "timezone": "Asia/Shanghai",
+          "rule": "北京时间周一至周五（不含中国法定节假日）9:00 - 12:00、14:00 - 18:00 为高峰时段；其余时段，包括周末及中国法定节假日全天均为空闲时段。"
+        },
+        "context": 1000000,
+        "note": "直接采用 DeepSeek 国内中文官网人民币原价，每百万 tokens。分高峰与空闲、缓存命中与未命中展示；预算按高峰未缓存费率预留，预留不代表当前实际单价。",
+        "pricingSchemaVersion": 2,
+        "unit": "CNY per 1M tokens",
+        "pricingBasis": "domestic_official_cny",
+        "budgetInput": 2,
+        "budgetOutput": 8,
+        "original": {
+          "currency": "CNY",
+          "input": 2,
+          "output": 8
+        },
+        "sourceUrl": "https://api-docs.deepseek.com/zh-cn/quick_start/pricing/",
+        "fetchedAt": "2026-10-16T15:08:56.194Z",
+        "sourceError": null,
+        "fxDate": null,
+        "fxSource": null,
+        "cnyPerUsd": 6.686217008797654,
+        "available": true,
+        "stale": false
+      },
+      {
+        "modelId": "deepseek-v4-pro",
+        "name": "DeepSeek-V4-Pro-0813",
+        "currency": "CNY",
+        "input": 9,
+        "output": 27,
+        "cacheHit": 0.3,
+        "tariffs": [
+          {
+            "label": "空闲时段",
+            "condition": "除高峰时段外，包括周末和中国法定节假日全天；北京时间",
+            "input": 4.5,
+            "cacheHit": 0.15,
+            "output": 13.5
+          },
+          {
+            "label": "高峰时段",
+            "condition": "北京时间周一至周五（不含中国法定节假日）9:00 - 12:00、14:00 - 18:00 为高峰时段；其余时段，包括周末及中国法定节假日全天均为空闲时段。",
+            "input": 9,
+            "cacheHit": 0.3,
+            "output": 27
+          }
+        ],
+        "schedule": {
+          "timezone": "Asia/Shanghai",
+          "rule": "北京时间周一至周五（不含中国法定节假日）9:00 - 12:00、14:00 - 18:00 为高峰时段；其余时段，包括周末及中国法定节假日全天均为空闲时段。"
+        },
+        "context": 1000000,
+        "note": "直接采用 DeepSeek 国内中文官网人民币原价，每百万 tokens。分高峰与空闲、缓存命中与未命中展示；预算按高峰未缓存费率预留，预留不代表当前实际单价。",
+        "pricingSchemaVersion": 2,
+        "unit": "CNY per 1M tokens",
+        "pricingBasis": "domestic_official_cny",
+        "budgetInput": 9,
+        "budgetOutput": 27,
+        "original": {
+          "currency": "CNY",
+          "input": 9,
+          "output": 27
+        },
+        "sourceUrl": "https://api-docs.deepseek.com/zh-cn/quick_start/pricing/",
+        "fetchedAt": "2026-10-16T15:08:56.194Z",
+        "sourceError": null,
+        "fxDate": null,
+        "fxSource": null,
+        "cnyPerUsd": 6.686217008797654,
+        "available": true,
+        "stale": false
+      }
+    ],
+    "qwenPlus": {
+      "modelId": "qwen-plus",
+      "name": "qwen-plus",
+      "currency": "CNY",
+      "input": 4.8,
+      "output": 64,
+      "tariffs": [
+        {
+          "label": "非思考模式",
+          "condition": "0<Token≤128K",
+          "input": 0.8,
+          "output": 2
         },
         {
-          "modelId": "deepseek-v4-pro",
-          "currency": "CNY",
-          "input": 8.832152034261242,
-          "output": 26.496456102783725,
-          "available": true,
-          "original": {
-            "currency": "USD",
-            "input": 1.32,
-            "output": 3.96
-          },
-          "fxDate": "2026-10-15"
+          "label": "思考模式",
+          "condition": "0<Token≤128K",
+          "input": 0.8,
+          "output": 8
+        },
+        {
+          "label": "非思考模式",
+          "condition": "128K<Token≤256K",
+          "input": 2.4,
+          "output": 20
+        },
+        {
+          "label": "思考模式",
+          "condition": "128K<Token≤256K",
+          "input": 2.4,
+          "output": 24
+        },
+        {
+          "label": "非思考模式",
+          "condition": "256K<Token≤1M",
+          "input": 4.8,
+          "output": 48
+        },
+        {
+          "label": "思考模式",
+          "condition": "256K<Token≤1M",
+          "input": 4.8,
+          "output": 64
         }
-      ]
+      ],
+      "context": 1000000,
+      "note": "百炼北京地域人民币原价；按未缓存实时调用、最高输入阶梯和较高思考模式价格保守估算，不抵扣优惠或免费额度。",
+      "pricingSchemaVersion": 2,
+      "unit": "CNY per 1M tokens",
+      "pricingBasis": "domestic_official_cny",
+      "budgetInput": 4.8,
+      "budgetOutput": 64,
+      "original": {
+        "currency": "CNY",
+        "input": 4.8,
+        "output": 64
+      },
+      "sourceUrl": "https://help.aliyun.com/zh/model-studio/model-pricing",
+      "fetchedAt": "2026-10-16T15:08:56.194Z",
+      "sourceError": null,
+      "fxDate": null,
+      "fxSource": null,
+      "cnyPerUsd": 6.686217008797654,
+      "available": true,
+      "stale": false
     },
-    "geminiPrices": {
-      "status": 200,
-      "count": 10,
-      "allCny": true
+    "glm51": {
+      "modelId": "glm-5.1",
+      "name": "GLM-5.1",
+      "currency": "CNY",
+      "input": 8,
+      "output": 28,
+      "context": 200000,
+      "tiers": [
+        {
+          "condition": "输入长度 \\[0, 32K)",
+          "input": 6,
+          "output": 24,
+          "cacheHit": 1.3
+        },
+        {
+          "condition": "输入长度 ≥32K",
+          "input": 8,
+          "output": 28,
+          "cacheHit": 2
+        }
+      ],
+      "sourceUrl": "https://docs.bigmodel.cn/cn/guide/start/pricing.md",
+      "note": "按输入/输出阶梯中最高单价保守估算；未命中缓存原价；缓存存储目前限时免费；历史模型是否可用以平台为准",
+      "pricingSchemaVersion": 2,
+      "unit": "CNY per 1M tokens",
+      "pricingBasis": "domestic_official_cny",
+      "budgetInput": 8,
+      "budgetOutput": 28,
+      "original": {
+        "currency": "CNY",
+        "input": 8,
+        "output": 28
+      },
+      "fetchedAt": "2026-10-16T15:08:56.194Z",
+      "sourceError": null,
+      "fxDate": null,
+      "fxSource": null,
+      "cnyPerUsd": 6.686217008797654,
+      "available": true,
+      "stale": false
     },
-    "geminiDiagnostic": {
-      "status": 200,
-      "data": {
-        "provider": "gemini",
-        "endpoint": "https://generativelanguage.googleapis.com/v1beta/models?pageSize=1000",
-        "reachable": true,
-        "ok": true,
-        "http_status": 403,
-        "reason": "authentication_required",
-        "elapsed_ms": 64,
-        "credentials_sent": false,
-        "inference_called": false,
-        "message": "Google 官方服务连接正常（未携带密钥，返回预期的身份验证提示）。可填写 AI Studio API Key 继续验证；本检查未验证账户权限或推理可用性。"
-      }
+    "kimiK3": {
+      "modelId": "kimi-k3",
+      "name": "kimi-k3",
+      "currency": "CNY",
+      "input": 20,
+      "output": 100,
+      "context": 1048576,
+      "cacheHit": 2,
+      "sourceUrl": "https://platform.kimi.com/docs/pricing/chat.md",
+      "cacheWrite5m": 20,
+      "cacheWrite1h": 40,
+      "cacheWrite": {
+        "ttl5m": 20,
+        "ttl1h": 40
+      },
+      "safeInputRate": 60,
+      "note": "官方输入原价另列；预算按未命中输入加最高 TTL 缓存写入费保守预留，未假定缓存优惠",
+      "pricingSchemaVersion": 2,
+      "unit": "CNY per 1M tokens",
+      "pricingBasis": "domestic_official_cny",
+      "budgetInput": 60,
+      "budgetOutput": 100,
+      "original": {
+        "currency": "CNY",
+        "input": 20,
+        "output": 100,
+        "safeInputRate": 60
+      },
+      "fetchedAt": "2026-10-16T15:08:56.194Z",
+      "sourceError": null,
+      "fxDate": null,
+      "fxSource": null,
+      "cnyPerUsd": 6.686217008797654,
+      "available": true,
+      "stale": false
     },
-    "serviceCannotReadUserKeys": true,
+    "kimiInternationalSeparate": true,
     "inferenceCalled": false
   },
-  "github_history_audit": {
-    "commits": 9,
-    "uniqueBlobs": 280,
-    "checkedIncludingArchiveEntries": 296,
-    "potentialSecretsFound": 0
+  "production": {
+    "version": "3.4.0",
+    "checkedAt": "2026-10-16T15:14:37.226Z",
+    "refreshStatus": 200,
+    "refreshResults": [
+      {
+        "id": "deepseek",
+        "skipped": true,
+        "ok": true,
+        "error": null
+      },
+      {
+        "id": "qwen",
+        "ok": true,
+        "models": 44,
+        "changed": true
+      },
+      {
+        "id": "glm-official-cny",
+        "ok": true,
+        "models": 22,
+        "changed": true
+      },
+      {
+        "id": "kimi-official-cny",
+        "ok": true,
+        "models": 4,
+        "changed": true
+      },
+      {
+        "id": "kimi-official-usd",
+        "ok": true,
+        "models": 4,
+        "changed": true
+      },
+      {
+        "id": "anthropic",
+        "ok": true,
+        "models": 19,
+        "changed": true
+      },
+      {
+        "id": "gemini",
+        "ok": true,
+        "models": 10,
+        "changed": true
+      },
+      {
+        "id": "xai",
+        "ok": true,
+        "models": 8,
+        "changed": true
+      },
+      {
+        "id": "fx",
+        "ok": true,
+        "changed": false
+      }
+    ],
+    "domesticDirectCny": true,
+    "deepseek": [
+      {
+        "modelId": "deepseek-flash",
+        "name": "DeepSeek-V4.1-Flash",
+        "currency": "CNY",
+        "input": 2,
+        "output": 8,
+        "cacheHit": 0.04,
+        "tariffs": [
+          {
+            "label": "空闲时段",
+            "condition": "除高峰时段外，包括周末和中国法定节假日全天；北京时间",
+            "input": 1,
+            "cacheHit": 0.02,
+            "output": 4
+          },
+          {
+            "label": "高峰时段",
+            "condition": "北京时间周一至周五（不含中国法定节假日）9:00 - 12:00、14:00 - 18:00 为高峰时段；其余时段，包括周末及中国法定节假日全天均为空闲时段。",
+            "input": 2,
+            "cacheHit": 0.04,
+            "output": 8
+          }
+        ],
+        "schedule": {
+          "timezone": "Asia/Shanghai",
+          "rule": "北京时间周一至周五（不含中国法定节假日）9:00 - 12:00、14:00 - 18:00 为高峰时段；其余时段，包括周末及中国法定节假日全天均为空闲时段。"
+        },
+        "context": 1000000,
+        "note": "直接采用 DeepSeek 国内中文官网人民币原价，每百万 tokens。分高峰与空闲、缓存命中与未命中展示；预算按高峰未缓存费率预留，预留不代表当前实际单价。",
+        "pricingSchemaVersion": 2,
+        "unit": "CNY per 1M tokens",
+        "pricingBasis": "domestic_official_cny",
+        "budgetInput": 2,
+        "budgetOutput": 8,
+        "original": {
+          "currency": "CNY",
+          "input": 2,
+          "output": 8
+        },
+        "sourceUrl": "https://api-docs.deepseek.com/zh-cn/quick_start/pricing/",
+        "fetchedAt": "2026-10-16T15:14:19.394Z",
+        "sourceError": null,
+        "fxDate": null,
+        "fxSource": null,
+        "cnyPerUsd": 6.686217008797654,
+        "available": true,
+        "stale": false
+      },
+      {
+        "modelId": "deepseek-v4-pro",
+        "name": "DeepSeek-V4-Pro-0813",
+        "currency": "CNY",
+        "input": 9,
+        "output": 27,
+        "cacheHit": 0.3,
+        "tariffs": [
+          {
+            "label": "空闲时段",
+            "condition": "除高峰时段外，包括周末和中国法定节假日全天；北京时间",
+            "input": 4.5,
+            "cacheHit": 0.15,
+            "output": 13.5
+          },
+          {
+            "label": "高峰时段",
+            "condition": "北京时间周一至周五（不含中国法定节假日）9:00 - 12:00、14:00 - 18:00 为高峰时段；其余时段，包括周末及中国法定节假日全天均为空闲时段。",
+            "input": 9,
+            "cacheHit": 0.3,
+            "output": 27
+          }
+        ],
+        "schedule": {
+          "timezone": "Asia/Shanghai",
+          "rule": "北京时间周一至周五（不含中国法定节假日）9:00 - 12:00、14:00 - 18:00 为高峰时段；其余时段，包括周末及中国法定节假日全天均为空闲时段。"
+        },
+        "context": 1000000,
+        "note": "直接采用 DeepSeek 国内中文官网人民币原价，每百万 tokens。分高峰与空闲、缓存命中与未命中展示；预算按高峰未缓存费率预留，预留不代表当前实际单价。",
+        "pricingSchemaVersion": 2,
+        "unit": "CNY per 1M tokens",
+        "pricingBasis": "domestic_official_cny",
+        "budgetInput": 9,
+        "budgetOutput": 27,
+        "original": {
+          "currency": "CNY",
+          "input": 9,
+          "output": 27
+        },
+        "sourceUrl": "https://api-docs.deepseek.com/zh-cn/quick_start/pricing/",
+        "fetchedAt": "2026-10-16T15:14:19.394Z",
+        "sourceError": null,
+        "fxDate": null,
+        "fxSource": null,
+        "cnyPerUsd": 6.686217008797654,
+        "available": true,
+        "stale": false
+      }
+    ],
+    "qwenPlus": {
+      "modelId": "qwen-plus",
+      "name": "qwen-plus",
+      "currency": "CNY",
+      "input": 4.8,
+      "output": 64,
+      "tariffs": [
+        {
+          "label": "非思考模式",
+          "condition": "0<Token≤128K",
+          "input": 0.8,
+          "output": 2
+        },
+        {
+          "label": "思考模式",
+          "condition": "0<Token≤128K",
+          "input": 0.8,
+          "output": 8
+        },
+        {
+          "label": "非思考模式",
+          "condition": "128K<Token≤256K",
+          "input": 2.4,
+          "output": 20
+        },
+        {
+          "label": "思考模式",
+          "condition": "128K<Token≤256K",
+          "input": 2.4,
+          "output": 24
+        },
+        {
+          "label": "非思考模式",
+          "condition": "256K<Token≤1M",
+          "input": 4.8,
+          "output": 48
+        },
+        {
+          "label": "思考模式",
+          "condition": "256K<Token≤1M",
+          "input": 4.8,
+          "output": 64
+        }
+      ],
+      "context": 1000000,
+      "note": "百炼北京地域人民币原价；按未缓存实时调用、最高输入阶梯和较高思考模式价格保守估算，不抵扣优惠或免费额度。",
+      "pricingSchemaVersion": 2,
+      "unit": "CNY per 1M tokens",
+      "pricingBasis": "domestic_official_cny",
+      "budgetInput": 4.8,
+      "budgetOutput": 64,
+      "original": {
+        "currency": "CNY",
+        "input": 4.8,
+        "output": 64
+      },
+      "sourceUrl": "https://help.aliyun.com/zh/model-studio/model-pricing",
+      "fetchedAt": "2026-10-16T15:14:28.370Z",
+      "sourceError": null,
+      "fxDate": null,
+      "fxSource": null,
+      "cnyPerUsd": 6.686217008797654,
+      "available": true,
+      "stale": false
+    },
+    "glm51": {
+      "modelId": "glm-5.1",
+      "name": "GLM-5.1",
+      "currency": "CNY",
+      "input": 8,
+      "output": 28,
+      "context": 200000,
+      "tiers": [
+        {
+          "condition": "输入长度 \\[0, 32K)",
+          "input": 6,
+          "output": 24,
+          "cacheHit": 1.3
+        },
+        {
+          "condition": "输入长度 ≥32K",
+          "input": 8,
+          "output": 28,
+          "cacheHit": 2
+        }
+      ],
+      "sourceUrl": "https://docs.bigmodel.cn/cn/guide/start/pricing.md",
+      "note": "按输入/输出阶梯中最高单价保守估算；未命中缓存原价；缓存存储目前限时免费；历史模型是否可用以平台为准",
+      "pricingSchemaVersion": 2,
+      "unit": "CNY per 1M tokens",
+      "pricingBasis": "domestic_official_cny",
+      "budgetInput": 8,
+      "budgetOutput": 28,
+      "original": {
+        "currency": "CNY",
+        "input": 8,
+        "output": 28
+      },
+      "fetchedAt": "2026-10-16T15:14:28.370Z",
+      "sourceError": null,
+      "fxDate": null,
+      "fxSource": null,
+      "cnyPerUsd": 6.686217008797654,
+      "available": true,
+      "stale": false
+    },
+    "kimiK3": {
+      "modelId": "kimi-k3",
+      "name": "kimi-k3",
+      "currency": "CNY",
+      "input": 20,
+      "output": 100,
+      "context": 1048576,
+      "cacheHit": 2,
+      "sourceUrl": "https://platform.kimi.com/docs/pricing/chat.md",
+      "cacheWrite5m": 20,
+      "cacheWrite1h": 40,
+      "cacheWrite": {
+        "ttl5m": 20,
+        "ttl1h": 40
+      },
+      "safeInputRate": 60,
+      "note": "官方输入原价另列；预算按未命中输入加最高 TTL 缓存写入费保守预留，未假定缓存优惠",
+      "pricingSchemaVersion": 2,
+      "unit": "CNY per 1M tokens",
+      "pricingBasis": "domestic_official_cny",
+      "budgetInput": 60,
+      "budgetOutput": 100,
+      "original": {
+        "currency": "CNY",
+        "input": 20,
+        "output": 100,
+        "safeInputRate": 60
+      },
+      "fetchedAt": "2026-10-16T15:14:28.370Z",
+      "sourceError": null,
+      "fxDate": null,
+      "fxSource": null,
+      "cnyPerUsd": 6.686217008797654,
+      "available": true,
+      "stale": false
+    },
+    "kimiIntlSeparate": true,
+    "inferenceCalled": false
   },
-  "inference": "not run; user confirmed successful Gemini API Key connection after deployment",
-  "audience": "repository prepared for public release; deployed service remains owner-private",
-  "web_ui": {
-    "version": "3.3.1",
-    "title": "为 GPT 配备外部专家。",
-    "title_verified": true
+  "ui": {
+    "live_web_tariffs": "verified",
+    "unit": "CNY per 1,000,000 tokens",
+    "native_MCP_App_tariffs": "verified on actual authenticated Codex MCP App 3.4.0"
   },
-  "gemini_key_connection": "human reported success; no paid inference performed"
+  "inference": "not run; no provider keys transmitted during pricing refresh"
 }

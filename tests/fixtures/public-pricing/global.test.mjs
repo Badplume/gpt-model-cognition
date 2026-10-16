@@ -9,7 +9,7 @@ test('official global descriptors use fixed primary pages and no API keys', () =
   assert.deepEqual(GLOBAL_PRICING_SOURCES.map(s => [s.provider, new URL(s.url).hostname]), [
     ['anthropic', 'platform.claude.com'], ['gemini', 'ai.google.dev'], ['xai', 'docs.x.ai'],
   ]);
-  assert.ok(GLOBAL_PRICING_SOURCES.every(s => !new URL(s.url).search && typeof s.parse === 'function'));
+  assert.ok(GLOBAL_PRICING_SOURCES.every(s => {const u=new URL(s.url);return !u.username&&!u.password&&u.search===(s.provider==='gemini'?'?hl=en':'')&&typeof s.parse==='function'}));
 });
 
 test('Claude base prices preserve USD and use highest Haiku prompt tier, not cache-hit discounts', async () => {

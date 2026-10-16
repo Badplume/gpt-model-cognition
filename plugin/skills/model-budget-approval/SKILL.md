@@ -16,3 +16,5 @@ Every inference path performs server preflight. Prefer the explicit two-step too
 - No automatic retries for failed or unknown-charge calls. A human approval does not authorize retries or a different task. Current task call count is an assistant-observed preference, not a globally authenticated host task identity.
 
 Do not modify stored budgets or provider prices to make a call fit. Ask for a configuration change only when the user actually wants to change their spending rules.
+
+The public model catalogue uses input_per_million/output_per_million in CNY per 1M tokens; these are explicitly budget ceilings. Actual tariff rows are retained under official.tariffs/tiers. Token calculations inside the server divide by one million exactly once. Budget reservation continues to use conservative peak/tier/cache-write ceilings, and direct-provider cost results are upper estimates, not invoices or guaranteed current-time charges. Never describe them as the rate for every period or context length.

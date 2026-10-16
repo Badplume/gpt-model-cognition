@@ -8,7 +8,7 @@ import {readPricingAction} from '../lib/pricing-request.mjs';
 function environment(){const sql=new DatabaseSync(':memory:');for(const file of readdirSync('drizzle').filter(x=>x.endsWith('.sql')).sort())sql.exec(readFileSync('drizzle/'+file,'utf8'));const DB={sql,prepare(q){const make=(args=[])=>({bind:(...a)=>make(a),async run(){return sql.prepare(q).run(...args)},async first(){return sql.prepare(q).get(...args)||null},async all(){return {results:sql.prepare(q).all(...args)}}});return make()},async batch(items){return Promise.all(items.map(x=>x.run()))}};return {DB,DELEGATOR_VAULT_KEY:randomBytes(32).toString('base64')}}
 const date=new Date().toISOString().slice(0,10),now=Date.now(),at=new Date(now).toISOString();
 const xml=`<Cube time='${date}'><Cube currency='USD' rate='1'/><Cube currency='CNY' rate='7'/></Cube>`;
-async function cache(env,id,data,when=at){await env.DB.prepare('INSERT OR REPLACE INTO official_pricing(id,payload,fetched_at,attempted_at) VALUES(?,?,?,?)').bind(id,JSON.stringify(data),when,when).run()}
+async function cache(env,id,data,when=at){await env.DB.prepare('INSERT OR REPLACE INTO official_pricing(id,payload,fetched_at,attempted_at) VALUES(?,?,?,?)').bind(id,JSON.stringify(Array.isArray(data)?data.map(x=>({...x,pricingSchemaVersion:2})):data),when,when).run()}
 test('empty readable request body selects automatic maintenance but malformed actions fail',async()=>{
  const empty=new Request('https://test/api/pricing',{method:'POST',body:''});assert(empty.body);assert.deepEqual(await readPricingAction(empty),{});
  assert.deepEqual(await readPricingAction(new Request('https://test/api/pricing',{method:'POST',body:'{"action":"refresh"}'})),{action:'refresh'});
@@ -28,16 +28,16 @@ test('09:00 checks tolerate scheduler jitter and preserve saved three-day policy
 test('ECB reference rates cross into CNY and reject invalid or stale dates',()=>{assert.equal(parseFx(xml).cnyPerUsd,7);assert.equal(parseFx(xml).usdPerUnit.CNY,1/7);assert.throws(()=>parseFx(xml.replace(date,'2000-01-01')));assert.throws(()=>parseFx(xml.replace("rate='7'","rate='0'")));});
 test('official fixture parsers retain currency and include peak/tier/cache ceilings',()=>{
  const files={deepseek:'deepseek-current.html',qwen:'qwen-beijing.html','glm-official-cny':'glm-official-cny.md','kimi-official-cny':'kimi-official-cny.md','kimi-official-usd':'kimi-official-usd.md'};
- for(const s of PRICE_SOURCES.filter(s=>files[s.id])){const rows=validatePrices(s.parse(readFileSync('tests/fixtures/public-pricing/'+files[s.id],'utf8')));assert(rows.length>=2);if(s.provider==='deepseek'){const flash=rows.find(x=>x.modelId==='deepseek-flash');assert.equal(flash.currency,'USD');assert.equal(flash.input,.3);assert.equal(flash.output,1.2);}if(s.provider==='glm')assert.equal(rows.find(x=>x.modelId==='glm-5.1').output,28);if(s.provider==='kimi')assert.equal(rows.find(x=>x.modelId==='kimi-k3').safeInputRate,60);}
+ for(const s of PRICE_SOURCES.filter(s=>files[s.id])){const rows=validatePrices(s.parse(readFileSync('tests/fixtures/public-pricing/'+files[s.id],'utf8')));assert(rows.length>=2);if(s.provider==='deepseek'){const flash=rows.find(x=>x.modelId==='deepseek-flash');assert.equal(flash.currency,'CNY');assert.equal(flash.input,2);assert.equal(flash.output,8);}if(s.provider==='glm')assert.equal(rows.find(x=>x.modelId==='glm-5.1').output,28);if(s.provider==='kimi')assert.equal(rows.find(x=>x.modelId==='kimi-k3').safeInputRate,60);}
  assert.throws(()=>validatePrices([{modelId:'x',currency:'CNY',input:NaN,output:1,note:'x'}]));
 });
 test('refresh fetches public sources with no credentials, keeps last good data, expires safely',async()=>{
  const env=environment(),fixture=readFileSync('tests/fixtures/public-pricing/deepseek-current.html','utf8');let calls=0;
  const fetcher=async(url,init)=>{calls++;assert.equal(init.redirect,'manual');assert.equal(init.headers.Authorization,undefined);assert.equal(init.headers['x-api-key'],undefined);assert(!init.body);return new Response(url.includes('ecb.europa.eu')?xml:fixture)};
  const result=await refreshPricing(env,{provider:'deepseek',fetcher,now});assert(result.results.every(x=>x.ok));assert.equal(calls,2);
- const p=await officialPrice(env,'deepseek','deepseek-flash',{refresh:false,now});assert.equal(p.currency,"CNY");assert.equal(p.input,.3*7);assert.equal(p.original.currency,"USD");assert.equal(p.original.input,.3);assert(p.available);
+ const p=await officialPrice(env,'deepseek','deepseek-flash',{refresh:false,now});assert.equal(p.currency,"CNY");assert.equal(p.input,2);assert.equal(p.original.currency,"CNY");assert.equal(p.original.input,2);assert(p.available);
  await refreshPricing(env,{provider:'deepseek',force:true,now:now+360000,fetcher:async()=>new Response('malformed price')});
- const kept=await officialPrice(env,'deepseek','deepseek-flash',{refresh:false,now:now+360000});assert(kept.available);assert.equal(kept.input,.3*7);assert(kept.sourceError);
+ const kept=await officialPrice(env,'deepseek','deepseek-flash',{refresh:false,now:now+360000});assert(kept.available);assert.equal(kept.input,2);assert(kept.sourceError);
  assert.equal((await officialPrice(env,'deepseek','deepseek-flash',{refresh:false,now:now+8*86400000})).available,false);
  assert.equal(await officialPrice(env,'deepseek','unknown-model',{refresh:false,now}),null);
 });
@@ -72,4 +72,14 @@ test('OpenRouter rate caps remain USD at its boundary; estimates and returned ch
  await env.DB.prepare('INSERT INTO accounts VALUES(?,?,?)').bind('u',await seal('test-router-key','u',env),JSON.stringify({...DEFAULTS,enabled:true,models:['router/test'],approvalCny:1,approvalTokens:200000})).run();
  let inferred=0;const f=async(url,init)=>url.endsWith('/models')?Response.json({data:[{id:'router/test',name:'test',context_length:100000,architecture:{input_modalities:['text'],output_modalities:['text']},pricing:{prompt:'0.000001',completion:'0.000002',request:'0.001'}}]}):(inferred++,assert(Math.abs(JSON.parse(init.body).provider.max_price.prompt-1)<1e-12),assert(Math.abs(JSON.parse(init.body).provider.max_price.request-.001)<1e-12),Response.json({choices:[{message:{content:'ok'}}],usage:{prompt_tokens:100,completion_tokens:100,cost:.02}}));
  const result=await consult('consult_model',{task:'small'},env,'u',f);assert.equal(inferred,1);const r=result.results[0];assert.equal(r.usage.currency,'CNY');assert.equal(r.usage.cost_cny,.14);assert(!('cost_usd' in r.usage));assert.equal(r.local_budget_charge_cny,.14);
+});
+test('old collapsed price cache cannot survive the schema upgrade or a recent fetch cooldown',async()=>{
+ const env=environment();await cache(env,'fx',parseFx(xml));await env.DB.prepare('INSERT OR REPLACE INTO official_pricing(id,payload,fetched_at,attempted_at) VALUES(?,?,?,?)').bind('deepseek',JSON.stringify([{modelId:'deepseek-flash',currency:'USD',input:.3,output:1.2,note:'old USD source'}]),at,at).run();
+ assert.equal((await officialPrice(env,'deepseek','deepseek-flash',{refresh:false})).available,false);
+ let calls=0;await refreshPricing(env,{provider:'deepseek',fetcher:async()=>{calls++;return new Response(readFileSync('tests/fixtures/public-pricing/deepseek-current.html','utf8'))},now});assert.equal(calls,1);
+ const p=await officialPrice(env,'deepseek','deepseek-flash',{refresh:false});assert(p.available);assert.equal(p.input,2);assert.equal(p.tariffs[0].input,1);assert.equal(p.pricingBasis,'domestic_official_cny');assert.equal(p.fxDate,null);
+});
+test('foreign nested tariff prices convert once into CNY per million tokens',async()=>{
+ const env=environment();await cache(env,'fx',parseFx(xml));await cache(env,'kimi-official-usd',[{modelId:'test',currency:'USD',input:2,output:8,note:'test',tariffs:[{label:'low',input:1,output:4,cacheHit:.1,promotion:{input:.8,output:3.2}},{label:'high',input:2,output:8}]}]);
+ const p=await officialPrice(env,'kimi_intl','test',{refresh:false});assert.equal(p.input,14);assert.equal(p.tariffs[0].input,7);assert.equal(p.tariffs[0].cacheHit,.1*7);assert.equal(p.tariffs[0].promotion.output,3.2*7);assert.equal(p.unit,'CNY per 1M tokens');
 });

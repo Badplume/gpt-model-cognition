@@ -1,9 +1,16 @@
-# Model Cognition Hub / Model Delegator 3.3.1
+# Model Cognition Hub / Model Delegator 3.4.0
 
 MIT 开源项目：[Badplume/model-cognition-hub](https://github.com/Badplume/model-cognition-hub)。
 部署自己的副本请先阅读 [部署说明](docs/deployment.md)、[安全边界](SECURITY.md)
 和 [第三方许可](THIRD_PARTY_NOTICES.md)。维护者的在线插件仍是私人实例。
 
+3.3.1 界面维护：连接页标题改为「为 GPT 配备外部专家」。用户已确认 Gemini Key 连接成功；付费推理未在本次维护中执行。
+
+## 3.4.0 国内人民币分档价目
+
+DeepSeek 改用国内中文官网人民币原价，保留高峰、空闲、缓存命中和未命中价格，以及北京时间和法定节假日规则。Qwen 北京保留输入长度与思考模式、限时优惠；GLM 展示已有输入/输出档位；Kimi 中国显示缓存命中与 TTL 写入费，国际站保持独立。所有文字单价统一为人民币元/百万 tokens（1M=1,000,000）。
+
+模型目录展示分档范围，详情逐档列价。预算仍按峰值/最高档和必要的缓存写入上界保守预留，预留不是实际单价或平台账单；不自动猜测中国节假日。旧版合并价格缓存需按新版结构重新抓取，失败时阻止付费调用。MCP 模型目录的公开数值改为每百万 tokens；服务器内部按 token 算用量只换算一次。
 
 ## 3.3.0 人民币基础币种与 Gemini 修复
 
