@@ -15,10 +15,10 @@
     "build": "passed",
     "native_ui": {
       "host": "Codex MCP App, actual authenticated production service",
-      "version": "3.3.1",
       "CNY_prices": "passed",
       "DeepSeek_preserved": "passed",
-      "Gemini_diagnostic": "passed"
+      "Gemini_diagnostic": "passed",
+      "version_observed": "3.3.0"
     },
     "production": {
       "version": "3.3.0",
@@ -88,7 +88,13 @@
       "potentialSecretsFound": 0
     },
     "inference": "not run; user confirmed successful Gemini API Key connection after deployment",
-    "audience": "repository prepared for public release; deployed service remains owner-private"
+    "audience": "repository prepared for public release; deployed service remains owner-private",
+    "web_ui": {
+      "version": "3.3.1",
+      "title": "为 GPT 配备外部专家。",
+      "title_verified": true
+    },
+    "gemini_key_connection": "human reported success; no paid inference performed"
   },
   "excluded": [
     ".openai/hosting.json",
