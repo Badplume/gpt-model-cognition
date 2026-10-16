@@ -7,3 +7,5 @@ export const directModels=sqliteTable('direct_models',{id:text('id').notNull(),u
 export const requests=sqliteTable('requests',{id:text('id').primaryKey(),userId:text('user_id').notNull(),status:text('status').notNull(),payload:text('payload').notNull(),estimate:text('estimate').notNull(),result:text('result'),createdAt:text('created_at').notNull(),expiresAt:text('expires_at').notNull()},t=>[index('requests_owner').on(t.userId,t.createdAt)]);
 
 export const officialPricing=sqliteTable('official_pricing',{id:text('id').primaryKey(),payload:text('payload'),fetchedAt:text('fetched_at'),attemptedAt:text('attempted_at').notNull(),error:text('error')});
+
+export const pricingPolicy=sqliteTable('pricing_policy',{id:integer('id').primaryKey(),autoUpdate:integer('auto_update').notNull().default(1),refreshHours:integer('refresh_hours').notNull().default(24)});

@@ -45,3 +45,4 @@ test('workerd can run the credential-free DeepSeek network check before configur
   assert.equal(calls.length,1);assert.equal(calls[0].authorization,null);assert.equal(calls[0].apiKey,null);assert.equal(calls[0].method,'GET');
  }finally{await mf.dispose();}
 });
+test('workerd accepts empty-stream POST for automatic pricing updates',async()=>{const {mf,calls}=await runtime('ok');try{const r=await mf.dispatchFetch('http://local.test/?action=pricing-parse',{method:'POST',body:''});assert.equal(r.status,200);assert.deepEqual(await r.json(),{});assert.equal(calls.length,0);}finally{await mf.dispose()}});

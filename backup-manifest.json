@@ -1,48 +1,107 @@
 {
-  "version": "3.2.0",
-  "created_utc": "2026-10-16T12:41:52.844Z",
-  "source_commit": "f81bb7589762eed781e5b2c236c4b2618757d248",
-  "plugin_release": "pluginrel_6ad21a2dca588191ae876d7092e7e31f",
+  "version": "3.2.2",
+  "plugin_version": "3.2.1",
+  "created_utc": "2026-10-16T13:14:56.867Z",
+  "source_commit": "0aa8c49c8d3edf5427a2b274cc8e1338e5a3bee6",
+  "plugin_release": "pluginrel_6ad2209685ac81918f54bf67172ad33d",
   "repository": "Badplume/model-cognition-hub",
-  "mode": "incremental atomic tree over existing main; retains previous full source and releases",
+  "mode": "incremental atomic tree over existing private main; retains prior source and releases",
   "validation": {
-    "version": "3.2.0",
-    "source_commit": "f81bb7589762eed781e5b2c236c4b2618757d248",
-    "plugin_release": "pluginrel_6ad21a2dca588191ae876d7092e7e31f",
-    "deployment": "appgdep_6ad219fb90308191bf2e98a8effd4761",
+    "version": "3.2.2",
+    "plugin_version": "3.2.1",
+    "source_commit": "0aa8c49c8d3edf5427a2b274cc8e1338e5a3bee6",
+    "plugin_release": "pluginrel_6ad2209685ac81918f54bf67172ad33d",
+    "deployment": "appgdep_6ad223140dc8819191a4dc4a9314f186",
     "production_deployment": "succeeded",
-    "tests": 53,
+    "tests": 58,
     "typecheck": "passed",
     "build": "passed",
-    "official_source_live_refresh": {
-      "status": 200,
-      "providers": 8,
-      "price_entries": 113,
-      "fx": "ECB",
-      "readback": "passed"
+    "browser_ui": {
+      "host": "mock MCP App iframe bridge, visually inspected",
+      "dedicatedPricingView": "passed",
+      "nativeCurrencyPrices": "passed",
+      "automaticPreferenceSave": "passed",
+      "manualRefreshWhileAutomaticOff": "passed",
+      "quickSettingsControls": "passed",
+      "errors": 0
     },
-    "existing_deepseek_effective_pricing": "official USD .3 input /1.2 output per million peak uncached",
-    "budget_currency": "CNY",
-    "user_settings_migration": "verified through authenticated MCP; historical USD retained",
-    "real_new_provider_inference": "not run; no new provider credentials",
-    "desktop_visual": "Native desktop not directly inspected: browser automation unavailable. Equivalent standalone bundled console rendered and tested with mock API.",
+    "production": {
+      "version": "3.2.2",
+      "refreshStatus": 200,
+      "readbackStatus": 200,
+      "automaticStatus": 200,
+      "automaticPolicy": {
+        "autoUpdate": true,
+        "refreshHours": 24
+      },
+      "policy": {
+        "autoUpdate": true,
+        "refreshHours": 24
+      },
+      "nextCheckAt": "2026-10-17T01:00:00.000Z",
+      "modelEntries": 113,
+      "sourceErrors": [],
+      "refreshResults": [
+        {
+          "id": "deepseek",
+          "ok": true,
+          "skipped": false
+        },
+        {
+          "id": "qwen",
+          "ok": true,
+          "skipped": false
+        },
+        {
+          "id": "glm-official-cny",
+          "ok": true,
+          "skipped": false
+        },
+        {
+          "id": "kimi-official-cny",
+          "ok": true,
+          "skipped": false
+        },
+        {
+          "id": "kimi-official-usd",
+          "ok": true,
+          "skipped": false
+        },
+        {
+          "id": "anthropic",
+          "ok": true,
+          "skipped": false
+        },
+        {
+          "id": "gemini",
+          "ok": true,
+          "skipped": false
+        },
+        {
+          "id": "xai",
+          "ok": true,
+          "skipped": false
+        },
+        {
+          "id": "fx",
+          "ok": true,
+          "skipped": false
+        }
+      ],
+      "pricingResource": "ui://model-delegator/pricing-v3-2-1.html",
+      "nativeMcpResourceVerification": "local protocol and mock host bridge tests passed; service access does not substitute for connected-App OAuth",
+      "servicePreferenceWriteStatus": 401,
+      "scope": "production public-data maintenance using real Site service access; no user identity or model inference"
+    },
+    "existing_user_policy": "readiness and allowed DeepSeek preserved; CNY budgets unchanged",
+    "native_desktop_visual": "not directly inspected",
+    "inference": "not run",
     "automation": {
       "id": "Automation_75f3a867b7e48191acaceb1fb755c92e",
       "enabled": true,
-      "time": "09:00 Asia/Shanghai daily",
-      "first_scheduled_occurrence": "2026-10-17",
-      "service_writer": "POST /api/pricing",
-      "unattended_service_access": "verified with POST and GET readback",
-      "scheduled_run": "not yet due"
-    },
-    "browser_ui": {
-      "rendering": "passed",
-      "native_currency_price": "CNY 2.4 input / 9.6 output per million displayed for qwen-max",
-      "manual_price_fields": "absent",
-      "save_model_without_manual_prices": "passed",
-      "cny_budget_controls": "passed",
-      "uncaught_browser_errors": 0,
-      "environment": "fresh headless Edge with mock API; local screenshot visually inspected"
+      "cadence": "09:00 Asia/Shanghai daily",
+      "duplicate_created": false,
+      "policy": "existing trigger invokes plugin automatic path; plugin controls enable and daily/3-day cadence"
     }
   },
   "excluded": [
@@ -58,155 +117,87 @@
   "files": [
     {
       "path": "README.md",
-      "sha256": "e4d851c288dd944a02f6f785ae404bea9316867002ae649abe3a774cce279b33"
+      "sha256": "78f5e94de9234be18af3cb93c43795bcc30091eeee35d4edeb34ab8526bf2c15"
     },
     {
       "path": "app/api/pricing/route.ts",
-      "sha256": "557e50184ca2139f328128b27c919746b5914840bc2de5019e5f9a15901f6adc"
-    },
-    {
-      "path": "app/globals.css",
-      "sha256": "cd008e143a17da1d081d8783d48940d39a72374619a439b166ba5dcb16f8de70"
+      "sha256": "f7524925363e9daf43d5ce0313354d2c7504c757164beb0c36707b2789d9eb3e"
     },
     {
       "path": "app/page.tsx",
-      "sha256": "16d70b41603fb1ef969643a06b2c1052688d393543e6fc8a8e2e372d84e764a6"
+      "sha256": "8ddc21f35c8a78e99b4b10df7ac8c4d27d76e7ec6fd1786eb107b0de2e39a949"
     },
     {
       "path": "components/pricing-panel.tsx",
-      "sha256": "40e1a8c8ff440106fa338f0905f16bd76923cd659441bb4d8b402c995ae9eeb8"
-    },
-    {
-      "path": "components/provider-manager.tsx",
-      "sha256": "8e76ccee92f707781f16a2c4f99672556a699d66b3e50b0e89fcdd30977cbf00"
-    },
-    {
-      "path": "components/request-console.tsx",
-      "sha256": "e0b98caf308a3976538119321d769ed8a40c3ddd4b1f61245605834da3a739fb"
+      "sha256": "5aac0458d3178c1ce5448a441524f3b52d2d00681b9c712483ab46305dba42a9"
     },
     {
       "path": "db/schema.ts",
-      "sha256": "08b1c59b581242d81e39fe8088f183b661395dd7d7a705cab53acd7e61fa40d4"
+      "sha256": "888a5045ea15c72b95e59113135b6980e63b270dc3ca7dfa615a1680881598ae"
     },
     {
       "path": "docs/pricing-maintenance.md",
-      "sha256": "3b1733ca101c73c70d238d116202bcac5bcdb5e434263fb41975b052e2cdbdc2"
+      "sha256": "dab942b17bbc80281faf6b0b748bd81849ee141c7a218ea414637d6b33881c50"
     },
     {
-      "path": "drizzle/0002_official_pricing.sql",
-      "sha256": "448e8bd2a8ef303ca767c89c7d315da8462a6387e0564b74ed63c4204b742109"
+      "path": "drizzle/0003_pricing_policy.sql",
+      "sha256": "7e0e10fb9ab4b0b3b8c1d77edc10135bb52b9871a999224b4570d31e453b16ff"
     },
     {
       "path": "drizzle/meta/_journal.json",
-      "sha256": "b7f4fdfebe2a177894b475a71a260c76cb9d6f32953b19a31fd0befdb0b0d1f7"
+      "sha256": "b48b1b1cc5b3300c540405cbc08ffe6e039873a4bf4c5480eab0b451ad055e14"
     },
     {
       "path": "lib/client-api.ts",
-      "sha256": "fe04ad0c0d1a726f668ff0d90fb155b60e18c5d6a4602442ab5b4eaca98497bc"
+      "sha256": "fdfb959b0a71932d3b0a3f5951502f2c9353ed1de6aec9a03c7d725444e0f88e"
     },
     {
       "path": "lib/console-ui.mjs",
-      "sha256": "e9719a928ded5cc703b573fcfd9da4343eea10855df914580f668810a0ccc371"
+      "sha256": "5aa064f6ae82561ebe371141f855451bd9de46cb659bef8709c5159a89751a75"
     },
     {
       "path": "lib/delegator.mjs",
-      "sha256": "d62d79bcef66984edb90b56a66f0b1562faa57076f969583fb1e611807e47d0a"
+      "sha256": "094fc7b00111534fc39c8caf0dc25c68df1dbba3010f2aad9a6b184a9af72fd3"
     },
     {
       "path": "lib/desktop-settings-ui.mjs",
-      "sha256": "556e1a53fbb93421898fc580d29a6071814b830020c3f1012f681db4126443f2"
+      "sha256": "1029040927d08b81f800b85f39651380a3a31b623230ee0b41fa1f012552e945"
     },
     {
-      "path": "lib/presets.mjs",
-      "sha256": "d5748d2d7cb637c263409e44c96a590475ff0a3192a6f25e7374acc95a205df1"
+      "path": "lib/pricing-policy.mjs",
+      "sha256": "375ee947ad6dfe8414552b80f1cede1dbe2e50a71aadec4e01f184e28f19db19"
     },
     {
-      "path": "lib/pricing-glm-kimi.mjs",
-      "sha256": "8c1591864ced3b0d39ccf2d23ee37419ce9c941b16d1dbf68922014d009463cc"
-    },
-    {
-      "path": "lib/pricing-global.mjs",
-      "sha256": "33b02c974be0e94afb17c480cad7e1962960ef9f8654ef77267c2057ea5576a5"
-    },
-    {
-      "path": "lib/pricing-qwen-deepseek.mjs",
-      "sha256": "510829e42aba952a8457321e144006a55b87f86f059fc252ae622103284318d6"
+      "path": "lib/pricing-request.mjs",
+      "sha256": "185d929f34c0c8cff19dd3a2f147567885e021324b7953e883436b68bdf2378d"
     },
     {
       "path": "lib/pricing.mjs",
-      "sha256": "0048f1667b35e982a6d1b8af8a86b2c7375c74253a72a1913d8963925f099a86"
-    },
-    {
-      "path": "lib/provider-registry.mjs",
-      "sha256": "8206edcdb0445f6fb67c63c57f7eb3fcbb8f8b1d513ccd7b42759668d3b58b42"
-    },
-    {
-      "path": "lib/providers.mjs",
-      "sha256": "f5a39a159e3cc26e52b43c92cc650a1f2d04be11c09dea3aba4fa29267260d71"
-    },
-    {
-      "path": "lib/workload.mjs",
-      "sha256": "dd490aa3b6544bc0d0b4f2e32012ec46fbc71d51c028ecc0548cb271bca40a39"
+      "sha256": "f646bd7fa284d1fd5a10b7f3bb0ee2448784c3ce525a63a3783e88c971b8a0b0"
     },
     {
       "path": "package.json",
-      "sha256": "7f0c05c1afdf63f462b26dc2f44f36277b61efbbf8fd63d84f046080135b93db"
+      "sha256": "48d405b56365cffd95ffeea38b1a25804668458dfb4938f5114c3a06b9d76144"
     },
     {
       "path": "scripts/build-widget.mjs",
-      "sha256": "2ef14d22dbf7df815211b6528b179c2565db6a3b084db311bea2ea966cf3f58b"
+      "sha256": "0f7ccdc582c66bd0a5d034cfe2f903791d8b4cf92e9aecaaf5300a084d8c9044"
     },
     {
       "path": "tests/delegator.test.mjs",
-      "sha256": "147419f8812b64d245ed81674903b3f4cb42e57bbfe26754e465aeb608191a12"
+      "sha256": "c471c1042288a0ca4cfb6b2502f2f28868445fdb8cd12b50bac7fd094477e519"
     },
     {
-      "path": "tests/fixtures/public-pricing/deepseek-current.html",
-      "sha256": "34a009cd87735fe89a9f8bcaa2a3bf068dbaf87c2d97b2a318cc4d46a4071f26"
-    },
-    {
-      "path": "tests/fixtures/public-pricing/glm-official-cny.md",
-      "sha256": "e47e492fffffdd7d0cdb3fb6b61f0ed33b2ab829dd3973c9d55e8a1f1c537e4a"
-    },
-    {
-      "path": "tests/fixtures/public-pricing/global-anthropic.md",
-      "sha256": "c5e161256cf33790e0c257dff1831aa9cadd2edb562c38538bf8320e33c6bf8b"
-    },
-    {
-      "path": "tests/fixtures/public-pricing/global-gemini.html",
-      "sha256": "917cf63a46596a080bb57b0f9d6a3f5a8cbaa2e446e935e9e31b45a906f97001"
-    },
-    {
-      "path": "tests/fixtures/public-pricing/global-sources.json",
-      "sha256": "223fa1de260451db28c512d3adad2204b2543885872cd67f7558668e3f0923a1"
-    },
-    {
-      "path": "tests/fixtures/public-pricing/global-xai.html",
-      "sha256": "4b80405428a318bae9e415f56077bdad91cadf65b48adb8c58850be96ed61c1d"
-    },
-    {
-      "path": "tests/fixtures/public-pricing/global.test.mjs",
-      "sha256": "6f5107f8c26b1f054062f05925686cbb5ac5059e669df9ad72606ca91432dacd"
-    },
-    {
-      "path": "tests/fixtures/public-pricing/kimi-official-cny.md",
-      "sha256": "ad2616ec6f3d647e5b353b638de8c461e3c5c1bd4b2f97c9b052abb2af6f5f47"
-    },
-    {
-      "path": "tests/fixtures/public-pricing/kimi-official-usd.md",
-      "sha256": "76361351b3e3f3184cbd89f262f4bd8ed212b4d481dd0d527f34221a35a4d079"
-    },
-    {
-      "path": "tests/fixtures/public-pricing/qwen-beijing.html",
-      "sha256": "e2cdf5bcdac05904ba2009509978d85a04e99b3a148fc984b0eade5f8df83ae6"
+      "path": "tests/fixtures/provider-worker.mjs",
+      "sha256": "6c7eab7964fa2d009c7bbc7741a55d4368be6480e289af09ae05dbfb781ba2b1"
     },
     {
       "path": "tests/pricing.test.mjs",
-      "sha256": "6626b549c608df02fdd542e850a30cae8efcca5caf2fba31a3b232c8b8a2dec5"
+      "sha256": "8bf3a0d29971a045bcb3288615894607dd0b430bbec6424f966e206b30e57d26"
     },
     {
       "path": "tests/provider-runtime.test.mjs",
-      "sha256": "6c5a523f783dcd513b393bb09bf71a54e6a1f897f7d73f7b36e7ea2ba36e0283"
+      "sha256": "a67677756f96fc31bbb68597ee716872f64af1c840ae2ca108a4f8b7ab8f32ad"
     },
     {
       "path": "plugin/.app.json",
@@ -214,11 +205,11 @@
     },
     {
       "path": "plugin/.codex-plugin/plugin.json",
-      "sha256": "9177030ee4b4e4c1bce81953cd215928a9bb21f2f7baa236be97fd1c0c212800"
+      "sha256": "4ef84fa72de53337f1358a067c1cad6c87a0dd5e4f23642e2adf549aa9c3523f"
     },
     {
       "path": "plugin/plugin.json",
-      "sha256": "cf4d6c3a17088d473ff480a1f7019b83037256d616744340f93faf1193dbe92d"
+      "sha256": "b191c4a4024cc401cdff539dc27e0f0b3c32eb8884a9e3782211b9592b16b090"
     },
     {
       "path": "plugin/skills/manual-model-call/SKILL.md",
@@ -237,24 +228,20 @@
       "sha256": "cf39cd7b4010d496351b6192cd4d01ed5b5ab4e1beb8433d2c8eaeea47841a46"
     },
     {
+      "path": "plugin/skills/pricing-updates/SKILL.md",
+      "sha256": "fc3f35645866042977383ab3f9c821c5f070b78b54fc760ba2c5dad7e3429d7c"
+    },
+    {
       "path": "plugin/skills/provider-setup/SKILL.md",
       "sha256": "522768ba5ddcf1c27a46563b4e7e969901a34d2fbf91e457b01379c829ce1526"
     },
     {
       "path": "verification.json",
-      "sha256": "dda01570d792a4fef1fadd789ea3560760828d368bbe9eb349adcab5d70d92ef"
+      "sha256": "f86c64413622a777fd1546e7c85a8372a3531f36c2b04627436f5057ad280e8c"
     },
     {
-      "path": "maintenance/3.2.0.md",
-      "sha256": "93e78c6ca1efdc2d9a1fba2774527cde10eb57f3e5f3ca6c2c60afe860dacbb2"
-    },
-    {
-      "path": "maintenance/bailian-student-guide.md",
-      "sha256": "f5f2e61d515873d0ac6072191d0bb1e2a9d09e040a27eb70c970477fa3308fb5"
-    },
-    {
-      "path": "maintenance/ui-verification-3.2.0.json",
-      "sha256": "81f1de594a589fb95c1ad30e4a5ab7c20c334cbfe91f6f6f63a0cf602ce44883"
+      "path": "maintenance/3.2.2.md",
+      "sha256": "b699da68e40d4f5b5cfb9aa61ec164f77167cbab01fa32c85b75b8a0a775f7a1"
     }
   ]
 }

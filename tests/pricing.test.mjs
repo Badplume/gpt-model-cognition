@@ -3,10 +3,28 @@ import {readFileSync,readdirSync} from 'node:fs';import {DatabaseSync} from 'nod
 import {parseFx,PRICE_SOURCES,refreshPricing,officialPrice,budgetFx,validatePrices} from '../lib/pricing.mjs';
 import {account,dayBudget,DEFAULTS,seal,planConsult} from '../lib/delegator.mjs';
 import {prepareRequest,decideRequest,executeRequest} from '../lib/workload.mjs';
+import {readPricingPolicy,savePricingPolicy,nextPricingCheck} from '../lib/pricing-policy.mjs';
+import {readPricingAction} from '../lib/pricing-request.mjs';
 function environment(){const sql=new DatabaseSync(':memory:');for(const file of readdirSync('drizzle').filter(x=>x.endsWith('.sql')).sort())sql.exec(readFileSync('drizzle/'+file,'utf8'));const DB={sql,prepare(q){const make=(args=[])=>({bind:(...a)=>make(a),async run(){return sql.prepare(q).run(...args)},async first(){return sql.prepare(q).get(...args)||null},async all(){return {results:sql.prepare(q).all(...args)}}});return make()},async batch(items){return Promise.all(items.map(x=>x.run()))}};return {DB,DELEGATOR_VAULT_KEY:randomBytes(32).toString('base64')}}
 const date=new Date().toISOString().slice(0,10),now=Date.now(),at=new Date(now).toISOString();
 const xml=`<Cube time='${date}'><Cube currency='USD' rate='1'/><Cube currency='CNY' rate='7'/></Cube>`;
 async function cache(env,id,data,when=at){await env.DB.prepare('INSERT OR REPLACE INTO official_pricing(id,payload,fetched_at,attempted_at) VALUES(?,?,?,?)').bind(id,JSON.stringify(data),when,when).run()}
+test('empty readable request body selects automatic maintenance but malformed actions fail',async()=>{
+ const empty=new Request('https://test/api/pricing',{method:'POST',body:''});assert(empty.body);assert.deepEqual(await readPricingAction(empty),{});
+ assert.deepEqual(await readPricingAction(new Request('https://test/api/pricing',{method:'POST',body:'{"action":"refresh"}'})),{action:'refresh'});
+ for(const body of ['null','[]','{','{"action":"infer"}','{"unexpected":true}'])await assert.rejects(readPricingAction(new Request('https://test/api/pricing',{method:'POST',body})));
+});
+test('automatic refresh can be paused while manual refresh remains available without keys',async()=>{
+ const env=environment();await savePricingPolicy(env,{autoUpdate:false,refreshHours:72});let calls=0;
+ const f=async url=>{calls++;return new Response(url.includes('ecb.europa.eu')?xml:readFileSync('tests/fixtures/public-pricing/deepseek-current.html','utf8'))};
+ const paused=await refreshPricing(env,{provider:'deepseek',fetcher:f,now});assert.equal(paused.automaticPaused,true);assert.equal(calls,0);assert.equal(paused.nextCheckAt,null);
+ const manual=await refreshPricing(env,{provider:'deepseek',force:true,fetcher:f,now});assert(manual.results.every(x=>x.ok));assert.equal(calls,2);assert.equal((await readPricingPolicy(env)).autoUpdate,false);
+ await budgetFx(env,async()=>{throw Error('paused FX must not fetch')});
+});
+test('09:00 checks tolerate scheduler jitter and preserve saved three-day policy',async()=>{
+ assert.equal(nextPricingCheck('2026-10-16T01:00:20Z',24),'2026-10-17T01:00:00.000Z');assert.equal(nextPricingCheck('2026-10-16T12:00:00Z',72),'2026-10-19T01:00:00.000Z');
+ const env=environment();assert.deepEqual(await readPricingPolicy(env),{autoUpdate:true,refreshHours:24});await savePricingPolicy(env,{refreshHours:72});await assert.rejects(savePricingPolicy(env,{refreshHours:12}));assert.equal((await readPricingPolicy(env)).refreshHours,72);
+});
 test('ECB reference rates cross into CNY and reject invalid or stale dates',()=>{assert.equal(parseFx(xml).cnyPerUsd,7);assert.equal(parseFx(xml).usdPerUnit.CNY,1/7);assert.throws(()=>parseFx(xml.replace(date,'2000-01-01')));assert.throws(()=>parseFx(xml.replace("rate='7'","rate='0'")));});
 test('official fixture parsers retain currency and include peak/tier/cache ceilings',()=>{
  const files={deepseek:'deepseek-current.html',qwen:'qwen-beijing.html','glm-official-cny':'glm-official-cny.md','kimi-official-cny':'kimi-official-cny.md','kimi-official-usd':'kimi-official-usd.md'};

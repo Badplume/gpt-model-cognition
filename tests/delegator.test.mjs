@@ -15,6 +15,17 @@ const catalog=[{id:'test/a',name:'A',architecture:{input_modalities:['text'],out
 async function setup(overrides={}){const env={DB:database(),DELEGATOR_VAULT_KEY:randomBytes(32).toString('base64')};const now=new Date().toISOString(),date=now.slice(0,10);await env.DB.prepare('INSERT INTO official_pricing(id,payload,fetched_at,attempted_at) VALUES(?,?,?,?)').bind('fx',JSON.stringify({date,cnyPerUsd:1,usdPerUnit:{USD:1,CNY:1},sourceUrl:'test://fx'}),now,now).run();const secret=await seal('test-secret','alice',env);await env.DB.prepare('INSERT INTO accounts VALUES(?,?,?)').bind('alice',secret,JSON.stringify({...DEFAULTS,enabled:true,models:['test/a','test/b'],...overrides})).run();return env;}
 function upstream(fn){return async(url,init)=>url.endsWith('/models')?Response.json({data:catalog}):fn(JSON.parse(init.body));}
 const req=(body,auth=true)=>new Request('https://example.test/mcp',{method:'POST',headers:auth?{'oai-authenticated-user-id':'alice'}:{},body:JSON.stringify(body)});
+test('pricing management is exposed in native settings and in model-visible tools',async()=>{
+ const env=await setup(),before=env.DB.sql.prepare('SELECT * FROM accounts').get(),settings=await readSettings(env,'alice');
+ assert.equal(settings.values.pricingAutoUpdate,true);assert.equal(settings.values.pricingRefreshHours,24);
+ assert(settings.layout.some(g=>g.items.some(i=>i.tool==='open_pricing')));assert(settings.layout.some(g=>g.items.some(i=>i.tool==='refresh_pricing')));
+ const changed=await updateSettings(env,'alice',{pricingAutoUpdate:false,pricingRefreshHours:72});assert.equal(changed.values.pricingAutoUpdate,false);assert.deepEqual(env.DB.sql.prepare('SELECT * FROM accounts').get(),before);
+ const tools=(await(await mcp(req({jsonrpc:'2.0',id:1,method:'tools/list'},false),env)).json()).result.tools;
+ for(const name of ['open_pricing','pricing_status','refresh_pricing']){const t=tools.find(x=>x.name===name);assert(t);assert(!t._meta?.ui?.visibility?.includes('app')||t._meta.ui.visibility.includes('model'));}
+ const uri=tools.find(t=>t.name==='open_pricing')._meta.ui.resourceUri;
+ const r=(await(await mcp(req({jsonrpc:'2.0',id:2,method:'resources/read',params:{uri}},false),env)).json()).result;assert(r.contents[0].text.includes('window.__MD_VIEW__="pricing"'));
+ await assert.rejects(updateSettings(env,'alice',{pricingAutoUpdate:'false'}));assert.equal((await readSettings(env,'alice')).values.pricingRefreshHours,72);
+});
 test('encrypted key is bound to its owner',async()=>{const env=await setup();const x=await seal('never-expose','alice',env);assert(!x.includes('never-expose'));assert.equal(await unseal(x,'alice',env),'never-expose');await assert.rejects(unseal(x,'bob',env));});
 test('invalid budgets are blocked and permission can be saved before setup',()=>{assert.throws(()=>validateSettings({...DEFAULTS,callCny:2,dailyCny:1}));assert.equal(validateSettings({...DEFAULTS,enabled:true}).enabled,true);assert.throws(()=>validateSettings({...DEFAULTS,models:['a','a']}));});
 test('cross-origin settings are rejected',()=>{assert.throws(()=>checkOrigin(new Request('https://example.test/api/config',{headers:{origin:'https://evil.test'}})));});

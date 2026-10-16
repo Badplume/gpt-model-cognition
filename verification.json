@@ -1,40 +1,98 @@
 {
-  "version": "3.2.0",
-  "source_commit": "f81bb7589762eed781e5b2c236c4b2618757d248",
-  "plugin_release": "pluginrel_6ad21a2dca588191ae876d7092e7e31f",
-  "deployment": "appgdep_6ad219fb90308191bf2e98a8effd4761",
+  "version": "3.2.2",
+  "plugin_version": "3.2.1",
+  "source_commit": "0aa8c49c8d3edf5427a2b274cc8e1338e5a3bee6",
+  "plugin_release": "pluginrel_6ad2209685ac81918f54bf67172ad33d",
+  "deployment": "appgdep_6ad223140dc8819191a4dc4a9314f186",
   "production_deployment": "succeeded",
-  "tests": 53,
+  "tests": 58,
   "typecheck": "passed",
   "build": "passed",
-  "official_source_live_refresh": {
-    "status": 200,
-    "providers": 8,
-    "price_entries": 113,
-    "fx": "ECB",
-    "readback": "passed"
+  "browser_ui": {
+    "host": "mock MCP App iframe bridge, visually inspected",
+    "dedicatedPricingView": "passed",
+    "nativeCurrencyPrices": "passed",
+    "automaticPreferenceSave": "passed",
+    "manualRefreshWhileAutomaticOff": "passed",
+    "quickSettingsControls": "passed",
+    "errors": 0
   },
-  "existing_deepseek_effective_pricing": "official USD .3 input /1.2 output per million peak uncached",
-  "budget_currency": "CNY",
-  "user_settings_migration": "verified through authenticated MCP; historical USD retained",
-  "real_new_provider_inference": "not run; no new provider credentials",
-  "desktop_visual": "Native desktop not directly inspected: browser automation unavailable. Equivalent standalone bundled console rendered and tested with mock API.",
+  "production": {
+    "version": "3.2.2",
+    "refreshStatus": 200,
+    "readbackStatus": 200,
+    "automaticStatus": 200,
+    "automaticPolicy": {
+      "autoUpdate": true,
+      "refreshHours": 24
+    },
+    "policy": {
+      "autoUpdate": true,
+      "refreshHours": 24
+    },
+    "nextCheckAt": "2026-10-17T01:00:00.000Z",
+    "modelEntries": 113,
+    "sourceErrors": [],
+    "refreshResults": [
+      {
+        "id": "deepseek",
+        "ok": true,
+        "skipped": false
+      },
+      {
+        "id": "qwen",
+        "ok": true,
+        "skipped": false
+      },
+      {
+        "id": "glm-official-cny",
+        "ok": true,
+        "skipped": false
+      },
+      {
+        "id": "kimi-official-cny",
+        "ok": true,
+        "skipped": false
+      },
+      {
+        "id": "kimi-official-usd",
+        "ok": true,
+        "skipped": false
+      },
+      {
+        "id": "anthropic",
+        "ok": true,
+        "skipped": false
+      },
+      {
+        "id": "gemini",
+        "ok": true,
+        "skipped": false
+      },
+      {
+        "id": "xai",
+        "ok": true,
+        "skipped": false
+      },
+      {
+        "id": "fx",
+        "ok": true,
+        "skipped": false
+      }
+    ],
+    "pricingResource": "ui://model-delegator/pricing-v3-2-1.html",
+    "nativeMcpResourceVerification": "local protocol and mock host bridge tests passed; service access does not substitute for connected-App OAuth",
+    "servicePreferenceWriteStatus": 401,
+    "scope": "production public-data maintenance using real Site service access; no user identity or model inference"
+  },
+  "existing_user_policy": "readiness and allowed DeepSeek preserved; CNY budgets unchanged",
+  "native_desktop_visual": "not directly inspected",
+  "inference": "not run",
   "automation": {
     "id": "Automation_75f3a867b7e48191acaceb1fb755c92e",
     "enabled": true,
-    "time": "09:00 Asia/Shanghai daily",
-    "first_scheduled_occurrence": "2026-10-17",
-    "service_writer": "POST /api/pricing",
-    "unattended_service_access": "verified with POST and GET readback",
-    "scheduled_run": "not yet due"
-  },
-  "browser_ui": {
-    "rendering": "passed",
-    "native_currency_price": "CNY 2.4 input / 9.6 output per million displayed for qwen-max",
-    "manual_price_fields": "absent",
-    "save_model_without_manual_prices": "passed",
-    "cny_budget_controls": "passed",
-    "uncaught_browser_errors": 0,
-    "environment": "fresh headless Edge with mock API; local screenshot visually inspected"
+    "cadence": "09:00 Asia/Shanghai daily",
+    "duplicate_created": false,
+    "policy": "existing trigger invokes plugin automatic path; plugin controls enable and daily/3-day cadence"
   }
 }
