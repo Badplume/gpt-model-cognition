@@ -1,98 +1,86 @@
 {
-  "version": "3.2.2",
-  "plugin_version": "3.2.1",
-  "source_commit": "0aa8c49c8d3edf5427a2b274cc8e1338e5a3bee6",
-  "plugin_release": "pluginrel_6ad2209685ac81918f54bf67172ad33d",
-  "deployment": "appgdep_6ad223140dc8819191a4dc4a9314f186",
+  "version": "3.3.1",
+  "source_commit": "9b023cbfedbb1d2e4898b99eea803f9aa9fc4ada",
+  "plugin_release": "pluginrel_6ad2348ae3008191ae7f365b063af95f",
+  "deployment": "appgdep_6ad234dfe5bc819186d8a6b33ff567a9",
   "production_deployment": "succeeded",
-  "tests": 58,
+  "tests": 63,
   "typecheck": "passed",
   "build": "passed",
-  "browser_ui": {
-    "host": "mock MCP App iframe bridge, visually inspected",
-    "dedicatedPricingView": "passed",
-    "nativeCurrencyPrices": "passed",
-    "automaticPreferenceSave": "passed",
-    "manualRefreshWhileAutomaticOff": "passed",
-    "quickSettingsControls": "passed",
-    "errors": 0
+  "native_ui": {
+    "host": "Codex MCP App, actual authenticated production service",
+    "version": "3.3.1",
+    "CNY_prices": "passed",
+    "DeepSeek_preserved": "passed",
+    "Gemini_diagnostic": "passed"
   },
   "production": {
-    "version": "3.2.2",
-    "refreshStatus": 200,
-    "readbackStatus": 200,
-    "automaticStatus": 200,
-    "automaticPolicy": {
-      "autoUpdate": true,
-      "refreshHours": 24
+    "version": "3.3.0",
+    "pricingStatus": 200,
+    "baseCurrency": "CNY",
+    "pricingCurrency": "CNY",
+    "fxDate": "2026-10-15",
+    "cnyPerUsd": 6.691024268379729,
+    "deepseek": {
+      "status": 200,
+      "prices": [
+        {
+          "modelId": "deepseek-flash",
+          "currency": "CNY",
+          "input": 2.0073072805139187,
+          "output": 8.029229122055675,
+          "available": true,
+          "original": {
+            "currency": "USD",
+            "input": 0.3,
+            "output": 1.2
+          },
+          "fxDate": "2026-10-15"
+        },
+        {
+          "modelId": "deepseek-v4-pro",
+          "currency": "CNY",
+          "input": 8.832152034261242,
+          "output": 26.496456102783725,
+          "available": true,
+          "original": {
+            "currency": "USD",
+            "input": 1.32,
+            "output": 3.96
+          },
+          "fxDate": "2026-10-15"
+        }
+      ]
     },
-    "policy": {
-      "autoUpdate": true,
-      "refreshHours": 24
+    "geminiPrices": {
+      "status": 200,
+      "count": 10,
+      "allCny": true
     },
-    "nextCheckAt": "2026-10-17T01:00:00.000Z",
-    "modelEntries": 113,
-    "sourceErrors": [],
-    "refreshResults": [
-      {
-        "id": "deepseek",
+    "geminiDiagnostic": {
+      "status": 200,
+      "data": {
+        "provider": "gemini",
+        "endpoint": "https://generativelanguage.googleapis.com/v1beta/models?pageSize=1000",
+        "reachable": true,
         "ok": true,
-        "skipped": false
-      },
-      {
-        "id": "qwen",
-        "ok": true,
-        "skipped": false
-      },
-      {
-        "id": "glm-official-cny",
-        "ok": true,
-        "skipped": false
-      },
-      {
-        "id": "kimi-official-cny",
-        "ok": true,
-        "skipped": false
-      },
-      {
-        "id": "kimi-official-usd",
-        "ok": true,
-        "skipped": false
-      },
-      {
-        "id": "anthropic",
-        "ok": true,
-        "skipped": false
-      },
-      {
-        "id": "gemini",
-        "ok": true,
-        "skipped": false
-      },
-      {
-        "id": "xai",
-        "ok": true,
-        "skipped": false
-      },
-      {
-        "id": "fx",
-        "ok": true,
-        "skipped": false
+        "http_status": 403,
+        "reason": "authentication_required",
+        "elapsed_ms": 64,
+        "credentials_sent": false,
+        "inference_called": false,
+        "message": "Google 官方服务连接正常（未携带密钥，返回预期的身份验证提示）。可填写 AI Studio API Key 继续验证；本检查未验证账户权限或推理可用性。"
       }
-    ],
-    "pricingResource": "ui://model-delegator/pricing-v3-2-1.html",
-    "nativeMcpResourceVerification": "local protocol and mock host bridge tests passed; service access does not substitute for connected-App OAuth",
-    "servicePreferenceWriteStatus": 401,
-    "scope": "production public-data maintenance using real Site service access; no user identity or model inference"
+    },
+    "serviceCannotReadUserKeys": true,
+    "inferenceCalled": false
   },
-  "existing_user_policy": "readiness and allowed DeepSeek preserved; CNY budgets unchanged",
-  "native_desktop_visual": "not directly inspected",
-  "inference": "not run",
-  "automation": {
-    "id": "Automation_75f3a867b7e48191acaceb1fb755c92e",
-    "enabled": true,
-    "cadence": "09:00 Asia/Shanghai daily",
-    "duplicate_created": false,
-    "policy": "existing trigger invokes plugin automatic path; plugin controls enable and daily/3-day cadence"
-  }
+  "github_history_audit": {
+    "commits": 9,
+    "uniqueBlobs": 280,
+    "checkedIncludingArchiveEntries": 296,
+    "potentialSecretsFound": 0
+  },
+  "inference": "not run; user confirmed successful Gemini API Key connection after deployment",
+  "audience": "repository prepared for public release; deployed service remains owner-private"
 }

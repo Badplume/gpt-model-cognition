@@ -1,7 +1,7 @@
 import test from 'node:test';import assert from 'node:assert/strict';
 import {readFileSync,readdirSync} from 'node:fs';import {DatabaseSync} from 'node:sqlite';import {randomBytes} from 'node:crypto';
 import {parseFx,PRICE_SOURCES,refreshPricing,officialPrice,budgetFx,validatePrices} from '../lib/pricing.mjs';
-import {account,dayBudget,DEFAULTS,seal,planConsult} from '../lib/delegator.mjs';
+import {account,dayBudget,DEFAULTS,seal,planConsult,consult} from '../lib/delegator.mjs';
 import {prepareRequest,decideRequest,executeRequest} from '../lib/workload.mjs';
 import {readPricingPolicy,savePricingPolicy,nextPricingCheck} from '../lib/pricing-policy.mjs';
 import {readPricingAction} from '../lib/pricing-request.mjs';
@@ -35,9 +35,9 @@ test('refresh fetches public sources with no credentials, keeps last good data, 
  const env=environment(),fixture=readFileSync('tests/fixtures/public-pricing/deepseek-current.html','utf8');let calls=0;
  const fetcher=async(url,init)=>{calls++;assert.equal(init.redirect,'manual');assert.equal(init.headers.Authorization,undefined);assert.equal(init.headers['x-api-key'],undefined);assert(!init.body);return new Response(url.includes('ecb.europa.eu')?xml:fixture)};
  const result=await refreshPricing(env,{provider:'deepseek',fetcher,now});assert(result.results.every(x=>x.ok));assert.equal(calls,2);
- const p=await officialPrice(env,'deepseek','deepseek-flash',{refresh:false,now});assert.equal(p.inputUsd,.3);assert(p.available);
+ const p=await officialPrice(env,'deepseek','deepseek-flash',{refresh:false,now});assert.equal(p.currency,"CNY");assert.equal(p.input,.3*7);assert.equal(p.original.currency,"USD");assert.equal(p.original.input,.3);assert(p.available);
  await refreshPricing(env,{provider:'deepseek',force:true,now:now+360000,fetcher:async()=>new Response('malformed price')});
- const kept=await officialPrice(env,'deepseek','deepseek-flash',{refresh:false,now:now+360000});assert(kept.available);assert.equal(kept.inputUsd,.3);assert(kept.sourceError);
+ const kept=await officialPrice(env,'deepseek','deepseek-flash',{refresh:false,now:now+360000});assert(kept.available);assert.equal(kept.input,.3*7);assert(kept.sourceError);
  assert.equal((await officialPrice(env,'deepseek','deepseek-flash',{refresh:false,now:now+8*86400000})).available,false);
  assert.equal(await officialPrice(env,'deepseek','unknown-model',{refresh:false,now}),null);
 });
@@ -54,9 +54,22 @@ test('CNY budgets use official rates; rising exchange rate invalidates an approv
  await env.DB.prepare('INSERT INTO provider_keys VALUES(?,?,?)').bind('alice','deepseek',await seal('test-official-key','alice',env)).run();
  await env.DB.prepare('INSERT INTO direct_models VALUES(?,?,?,?,?,?,?,?)').bind('deepseek:deepseek-flash','alice','deepseek','deepseek-flash','Flash',.001,.002,50000).run();
  let inferred=0;const f=async()=>{inferred++;throw Error('must not call')};
- const plan=await planConsult('consult_model',{task:'verify'},env,'alice',f);assert.equal(plan.selected[0].prompt,.3/1e6);assert(plan.reserved>10000);
+ const plan=await planConsult('consult_model',{task:'verify'},env,'alice',f);assert.equal(plan.selected[0].pricing_currency,"CNY");assert.equal(plan.selected[0].prompt,.3*7/1e6);assert(plan.reserved>10000);
  const p=await prepareRequest('consult_model',{task:'verify'},env,'alice',f);assert.equal(p.estimate.budget_currency,'CNY');assert.equal(p.estimate.fx.cny_per_usd,7);await decideRequest(p.request_id,true,env,'alice');
  await cache(env,'fx',{...parseFx(xml),cnyPerUsd:8,usdPerUnit:{USD:1,CNY:1/8}});
  await assert.rejects(executeRequest(p.request_id,env,'alice',f),/估算已上升/);assert.equal(inferred,0);
  await cache(env,'fx',{...parseFx(xml),date:'2000-01-01'});await assert.rejects(budgetFx(env,f),/过期/);
+});
+test('CNY-native prices and cache ceilings stay CNY; foreign rates require fresh FX',async()=>{
+ const env=environment();await cache(env,'fx',parseFx(xml));
+ await cache(env,'kimi-official-cny',[{modelId:'kimi-test',currency:'CNY',input:2,output:12,safeInputRate:62,cacheHit:1,cacheWrite5m:10,cacheWrite1h:60,cacheWrite:{ttl5m:10,ttl1h:60},note:'test'}]);
+ const p=await officialPrice(env,'kimi','kimi-test',{refresh:false});assert.equal(p.input,2);assert.equal(p.output,12);assert.equal(p.safeInputRate,62);assert.deepEqual(p.cacheWrite,{ttl5m:10,ttl1h:60});assert.equal(p.currency,'CNY');
+ await cache(env,'deepseek',[{modelId:'flash',currency:'USD',input:.3,output:1.2,note:'test'}]);
+ await cache(env,'fx',parseFx(xml),new Date(now-8*86400000).toISOString());assert.equal((await officialPrice(env,'deepseek','flash',{refresh:false})).available,false);
+});
+test('OpenRouter rate caps remain USD at its boundary; estimates and returned charges are CNY once',async()=>{
+ const env=environment();await cache(env,'fx',parseFx(xml));
+ await env.DB.prepare('INSERT INTO accounts VALUES(?,?,?)').bind('u',await seal('test-router-key','u',env),JSON.stringify({...DEFAULTS,enabled:true,models:['router/test'],approvalCny:1,approvalTokens:200000})).run();
+ let inferred=0;const f=async(url,init)=>url.endsWith('/models')?Response.json({data:[{id:'router/test',name:'test',context_length:100000,architecture:{input_modalities:['text'],output_modalities:['text']},pricing:{prompt:'0.000001',completion:'0.000002',request:'0.001'}}]}):(inferred++,assert(Math.abs(JSON.parse(init.body).provider.max_price.prompt-1)<1e-12),assert(Math.abs(JSON.parse(init.body).provider.max_price.request-.001)<1e-12),Response.json({choices:[{message:{content:'ok'}}],usage:{prompt_tokens:100,completion_tokens:100,cost:.02}}));
+ const result=await consult('consult_model',{task:'small'},env,'u',f);assert.equal(inferred,1);const r=result.results[0];assert.equal(r.usage.currency,'CNY');assert.equal(r.usage.cost_cny,.14);assert(!('cost_usd' in r.usage));assert.equal(r.local_budget_charge_cny,.14);
 });

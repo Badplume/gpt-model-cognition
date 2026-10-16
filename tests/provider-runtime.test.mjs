@@ -11,7 +11,7 @@ const bundled=await build({entryPoints:['tests/fixtures/provider-worker.mjs'],wr
 async function runtime(mode){
  const calls=[];
  const mf=new Miniflare({modules:true,script:bundled.outputFiles[0].text,compatibilityDate:'2026-05-15',outboundService:async request=>{
-  calls.push({url:request.url,method:request.method,authorization:request.headers.get('authorization'),apiKey:request.headers.get('x-api-key')});
+  calls.push({url:request.url,method:request.method,authorization:request.headers.get('authorization'),apiKey:request.headers.get('x-api-key'),googleKey:request.headers.get('x-goog-api-key')});
   if(request.url==='https://docs.bigmodel.cn/cn/guide/start/pricing.md')return new Response(readFileSync('tests/fixtures/public-pricing/glm-official-cny.md','utf8'));
   const entry=Object.entries(PROVIDERS).find(([id,p])=>request.url===catalogEndpoint(id)||request.url.startsWith(p.base+'/'));
   assert(entry,'no request may leave the fixed official provider endpoints');
@@ -19,7 +19,7 @@ async function runtime(mode){
   assert(isCatalog||request.url===p.base+(provider==='anthropic'?'/messages':'/chat/completions'));
   if(mode==='redirect')return new Response('',{status:isCatalog?302:307,headers:{location:'https://example.invalid/steal'}});
   if(mode==='unauthenticated')return new Response('',{status:401});
-  return Response.json(isCatalog?(provider==='qwen'?{success:true,output:{total:1,models:[{model:'test-model',name:'test-model'}]}}:{data:[{id:'test-model',name:provider}]}):provider==='anthropic'?{content:[{type:'text',text:'runtime answer'}],usage:{input_tokens:1,output_tokens:1}}:{choices:[{message:{content:'runtime answer'}}],usage:{prompt_tokens:1,completion_tokens:1}});
+  return Response.json(isCatalog?(provider==='gemini'?{models:[{name:'models/test-model',displayName:'Gemini test',supportedGenerationMethods:['generateContent'],inputTokenLimit:100000}]}:provider==='qwen'?{success:true,output:{total:1,models:[{model:'test-model',name:'test-model'}]}}:{data:[{id:'test-model',name:provider}]}):provider==='anthropic'?{content:[{type:'text',text:'runtime answer'}],usage:{input_tokens:1,output_tokens:1}}:{choices:[{message:{content:'runtime answer'}}],usage:{prompt_tokens:1,completion_tokens:1}});
  }});
  return {mf,calls};
 }
@@ -30,6 +30,7 @@ test('all official catalogs and inference requests run in the deployed workerd r
    const inference=await mf.dispatchFetch('http://local.test/?action=infer&provider='+provider);assert.equal(inference.status,200);assert.equal((await inference.json()).choices[0].message.content,'runtime answer');
   }
   assert.equal(calls.length,Object.keys(PROVIDERS).length*2+1);
+  const google=calls.filter(c=>c.url.includes('googleapis.com'));assert.equal(google[0].authorization,null);assert(google[0].googleKey);assert.equal(google[1].googleKey,null);assert(google[1].authorization.startsWith('Bearer '));
  }finally{await mf.dispose();}
 });
 test('workerd rejects official redirects without sending a second request',async()=>{

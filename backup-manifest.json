@@ -1,108 +1,94 @@
 {
-  "version": "3.2.2",
-  "plugin_version": "3.2.1",
-  "created_utc": "2026-10-16T13:14:56.867Z",
-  "source_commit": "0aa8c49c8d3edf5427a2b274cc8e1338e5a3bee6",
-  "plugin_release": "pluginrel_6ad2209685ac81918f54bf67172ad33d",
+  "version": "3.3.1",
+  "created_utc": "2026-10-16T14:30:42.777Z",
+  "source_commit": "9b023cbfedbb1d2e4898b99eea803f9aa9fc4ada",
   "repository": "Badplume/model-cognition-hub",
-  "mode": "incremental atomic tree over existing private main; retains prior source and releases",
+  "mode": "incremental source update over audited history; public open-source release",
   "validation": {
-    "version": "3.2.2",
-    "plugin_version": "3.2.1",
-    "source_commit": "0aa8c49c8d3edf5427a2b274cc8e1338e5a3bee6",
-    "plugin_release": "pluginrel_6ad2209685ac81918f54bf67172ad33d",
-    "deployment": "appgdep_6ad223140dc8819191a4dc4a9314f186",
+    "version": "3.3.1",
+    "source_commit": "9b023cbfedbb1d2e4898b99eea803f9aa9fc4ada",
+    "plugin_release": "pluginrel_6ad2348ae3008191ae7f365b063af95f",
+    "deployment": "appgdep_6ad234dfe5bc819186d8a6b33ff567a9",
     "production_deployment": "succeeded",
-    "tests": 58,
+    "tests": 63,
     "typecheck": "passed",
     "build": "passed",
-    "browser_ui": {
-      "host": "mock MCP App iframe bridge, visually inspected",
-      "dedicatedPricingView": "passed",
-      "nativeCurrencyPrices": "passed",
-      "automaticPreferenceSave": "passed",
-      "manualRefreshWhileAutomaticOff": "passed",
-      "quickSettingsControls": "passed",
-      "errors": 0
+    "native_ui": {
+      "host": "Codex MCP App, actual authenticated production service",
+      "version": "3.3.1",
+      "CNY_prices": "passed",
+      "DeepSeek_preserved": "passed",
+      "Gemini_diagnostic": "passed"
     },
     "production": {
-      "version": "3.2.2",
-      "refreshStatus": 200,
-      "readbackStatus": 200,
-      "automaticStatus": 200,
-      "automaticPolicy": {
-        "autoUpdate": true,
-        "refreshHours": 24
+      "version": "3.3.0",
+      "pricingStatus": 200,
+      "baseCurrency": "CNY",
+      "pricingCurrency": "CNY",
+      "fxDate": "2026-10-15",
+      "cnyPerUsd": 6.691024268379729,
+      "deepseek": {
+        "status": 200,
+        "prices": [
+          {
+            "modelId": "deepseek-flash",
+            "currency": "CNY",
+            "input": 2.0073072805139187,
+            "output": 8.029229122055675,
+            "available": true,
+            "original": {
+              "currency": "USD",
+              "input": 0.3,
+              "output": 1.2
+            },
+            "fxDate": "2026-10-15"
+          },
+          {
+            "modelId": "deepseek-v4-pro",
+            "currency": "CNY",
+            "input": 8.832152034261242,
+            "output": 26.496456102783725,
+            "available": true,
+            "original": {
+              "currency": "USD",
+              "input": 1.32,
+              "output": 3.96
+            },
+            "fxDate": "2026-10-15"
+          }
+        ]
       },
-      "policy": {
-        "autoUpdate": true,
-        "refreshHours": 24
+      "geminiPrices": {
+        "status": 200,
+        "count": 10,
+        "allCny": true
       },
-      "nextCheckAt": "2026-10-17T01:00:00.000Z",
-      "modelEntries": 113,
-      "sourceErrors": [],
-      "refreshResults": [
-        {
-          "id": "deepseek",
+      "geminiDiagnostic": {
+        "status": 200,
+        "data": {
+          "provider": "gemini",
+          "endpoint": "https://generativelanguage.googleapis.com/v1beta/models?pageSize=1000",
+          "reachable": true,
           "ok": true,
-          "skipped": false
-        },
-        {
-          "id": "qwen",
-          "ok": true,
-          "skipped": false
-        },
-        {
-          "id": "glm-official-cny",
-          "ok": true,
-          "skipped": false
-        },
-        {
-          "id": "kimi-official-cny",
-          "ok": true,
-          "skipped": false
-        },
-        {
-          "id": "kimi-official-usd",
-          "ok": true,
-          "skipped": false
-        },
-        {
-          "id": "anthropic",
-          "ok": true,
-          "skipped": false
-        },
-        {
-          "id": "gemini",
-          "ok": true,
-          "skipped": false
-        },
-        {
-          "id": "xai",
-          "ok": true,
-          "skipped": false
-        },
-        {
-          "id": "fx",
-          "ok": true,
-          "skipped": false
+          "http_status": 403,
+          "reason": "authentication_required",
+          "elapsed_ms": 64,
+          "credentials_sent": false,
+          "inference_called": false,
+          "message": "Google 官方服务连接正常（未携带密钥，返回预期的身份验证提示）。可填写 AI Studio API Key 继续验证；本检查未验证账户权限或推理可用性。"
         }
-      ],
-      "pricingResource": "ui://model-delegator/pricing-v3-2-1.html",
-      "nativeMcpResourceVerification": "local protocol and mock host bridge tests passed; service access does not substitute for connected-App OAuth",
-      "servicePreferenceWriteStatus": 401,
-      "scope": "production public-data maintenance using real Site service access; no user identity or model inference"
+      },
+      "serviceCannotReadUserKeys": true,
+      "inferenceCalled": false
     },
-    "existing_user_policy": "readiness and allowed DeepSeek preserved; CNY budgets unchanged",
-    "native_desktop_visual": "not directly inspected",
-    "inference": "not run",
-    "automation": {
-      "id": "Automation_75f3a867b7e48191acaceb1fb755c92e",
-      "enabled": true,
-      "cadence": "09:00 Asia/Shanghai daily",
-      "duplicate_created": false,
-      "policy": "existing trigger invokes plugin automatic path; plugin controls enable and daily/3-day cadence"
-    }
+    "github_history_audit": {
+      "commits": 9,
+      "uniqueBlobs": 280,
+      "checkedIncludingArchiveEntries": 296,
+      "potentialSecretsFound": 0
+    },
+    "inference": "not run; user confirmed successful Gemini API Key connection after deployment",
+    "audience": "repository prepared for public release; deployed service remains owner-private"
   },
   "excluded": [
     ".openai/hosting.json",
@@ -116,132 +102,168 @@
   ],
   "files": [
     {
-      "path": "README.md",
-      "sha256": "78f5e94de9234be18af3cb93c43795bcc30091eeee35d4edeb34ab8526bf2c15"
+      "path": "LICENSE",
+      "sha256": "c21b4dcd63a61405d9ad3798c57f6a1e7c5da047d64f00e056bcd5a6031422e7"
     },
     {
-      "path": "app/api/pricing/route.ts",
-      "sha256": "f7524925363e9daf43d5ce0313354d2c7504c757164beb0c36707b2789d9eb3e"
+      "path": "README.md",
+      "sha256": "c9ddec9f40f8e801cff488038cec08a6bbdc2a9e92f99b8d2141e98781f2cde2"
+    },
+    {
+      "path": "SECURITY.md",
+      "sha256": "63bb7a71560ae609e48b12b32e78122bea06338db7f1004e5bdd43c4117ab328"
+    },
+    {
+      "path": "THIRD_PARTY_NOTICES.md",
+      "sha256": "0e78e3788b9494def936d7db430771c06e04b939b9536f31210d09be04125e21"
+    },
+    {
+      "path": "app/api/providers/route.ts",
+      "sha256": "1a08aeb22a3c807b9a098f0630c6df028d684cabb7912f0d50d48b7173bb1146"
     },
     {
       "path": "app/page.tsx",
-      "sha256": "8ddc21f35c8a78e99b4b10df7ac8c4d27d76e7ec6fd1786eb107b0de2e39a949"
+      "sha256": "b971c965100f4ea8456f0f4d1b7ebd4194986ff7cefdc56c26a94d348dcde8dd"
     },
     {
       "path": "components/pricing-panel.tsx",
-      "sha256": "5aac0458d3178c1ce5448a441524f3b52d2d00681b9c712483ab46305dba42a9"
+      "sha256": "7a4b6d7bed7fdd8ac41927b6d4ad17b56f8690640bfed43765195c09ce3a3560"
     },
     {
-      "path": "db/schema.ts",
-      "sha256": "888a5045ea15c72b95e59113135b6980e63b270dc3ca7dfa615a1680881598ae"
+      "path": "components/provider-manager.tsx",
+      "sha256": "95528d241c461a4bb0fad2d1d0cd4f4de95745e8a0178ae28234d99c12afc22e"
     },
     {
-      "path": "docs/pricing-maintenance.md",
-      "sha256": "dab942b17bbc80281faf6b0b748bd81849ee141c7a218ea414637d6b33881c50"
+      "path": "components/request-console.tsx",
+      "sha256": "32e30494e2e569b32c45ada60d864cd0e597bb4a4daf909e50004a5f187dd860"
     },
     {
-      "path": "drizzle/0003_pricing_policy.sql",
-      "sha256": "7e0e10fb9ab4b0b3b8c1d77edc10135bb52b9871a999224b4570d31e453b16ff"
-    },
-    {
-      "path": "drizzle/meta/_journal.json",
-      "sha256": "b48b1b1cc5b3300c540405cbc08ffe6e039873a4bf4c5480eab0b451ad055e14"
+      "path": "docs/deployment.md",
+      "sha256": "30a75b03d5bffe809613d4e1e2b97898d74d367c556c5537ac615cf017fb68e0"
     },
     {
       "path": "lib/client-api.ts",
-      "sha256": "fdfb959b0a71932d3b0a3f5951502f2c9353ed1de6aec9a03c7d725444e0f88e"
+      "sha256": "db604cc3ce6e7d94880566ec316e922b4b3ce4188661df6d04c957ee99d1a07e"
     },
     {
       "path": "lib/console-ui.mjs",
-      "sha256": "5aa064f6ae82561ebe371141f855451bd9de46cb659bef8709c5159a89751a75"
+      "sha256": "6b7ccf7aeee2467221410056577de2bd2380872a42c06fbdfdb7ad94a159c828"
     },
     {
       "path": "lib/delegator.mjs",
-      "sha256": "094fc7b00111534fc39c8caf0dc25c68df1dbba3010f2aad9a6b184a9af72fd3"
+      "sha256": "b206a604741bd6af4e353b5c1948a8a798ebeb93e46f87d21ca95d36bdde84aa"
     },
     {
       "path": "lib/desktop-settings-ui.mjs",
-      "sha256": "1029040927d08b81f800b85f39651380a3a31b623230ee0b41fa1f012552e945"
+      "sha256": "e52c2a86c83b6b047dfc61261a583fc0a5309551d95b8476635b1bc7cae9c998"
     },
     {
-      "path": "lib/pricing-policy.mjs",
-      "sha256": "375ee947ad6dfe8414552b80f1cede1dbe2e50a71aadec4e01f184e28f19db19"
+      "path": "lib/gemini.mjs",
+      "sha256": "80783e38d2bf0763a48234e2f1ba7a443c489d86bc3c0fa8e5867735a359dacd"
     },
     {
-      "path": "lib/pricing-request.mjs",
-      "sha256": "185d929f34c0c8cff19dd3a2f147567885e021324b7953e883436b68bdf2378d"
+      "path": "lib/money.mjs",
+      "sha256": "21469365e8f08977d23e9d03d09e16c9e0caa14040bb2551201d73459406152a"
     },
     {
       "path": "lib/pricing.mjs",
-      "sha256": "f646bd7fa284d1fd5a10b7f3bb0ee2448784c3ce525a63a3783e88c971b8a0b0"
+      "sha256": "85867802600df6170b3d8ffa893d480bc826b4293f160afa4a77df578bfe2158"
+    },
+    {
+      "path": "lib/provider-registry.mjs",
+      "sha256": "329752358bfb08ca3a993d94bbfa9769f1ec7a3fffd9e50449347cab07503487"
+    },
+    {
+      "path": "lib/providers.mjs",
+      "sha256": "09f6934b0ae6aa950b479e6a20866d29d05708b12c04338863a33f35a1eed8fb"
     },
     {
       "path": "package.json",
-      "sha256": "48d405b56365cffd95ffeea38b1a25804668458dfb4938f5114c3a06b9d76144"
-    },
-    {
-      "path": "scripts/build-widget.mjs",
-      "sha256": "0f7ccdc582c66bd0a5d034cfe2f903791d8b4cf92e9aecaaf5300a084d8c9044"
-    },
-    {
-      "path": "tests/delegator.test.mjs",
-      "sha256": "c471c1042288a0ca4cfb6b2502f2f28868445fdb8cd12b50bac7fd094477e519"
-    },
-    {
-      "path": "tests/fixtures/provider-worker.mjs",
-      "sha256": "6c7eab7964fa2d009c7bbc7741a55d4368be6480e289af09ae05dbfb781ba2b1"
-    },
-    {
-      "path": "tests/pricing.test.mjs",
-      "sha256": "8bf3a0d29971a045bcb3288615894607dd0b430bbec6424f966e206b30e57d26"
-    },
-    {
-      "path": "tests/provider-runtime.test.mjs",
-      "sha256": "a67677756f96fc31bbb68597ee716872f64af1c840ae2ca108a4f8b7ab8f32ad"
+      "sha256": "a970e2326a92f73cf6de5d3c7726fb5d1df755acd4a7b0d5fe53e6a252c0885d"
     },
     {
       "path": "plugin/.app.json",
-      "sha256": "f40bec8b65e779f12e8190cf25b4849fe90db24038927439bae8dc46eb8f7c0b"
+      "sha256": "a485e1edbf7a6ed77ff3e436f04d5ac80708736b4e8d0097c66b6bbd9aab5e74"
     },
     {
       "path": "plugin/.codex-plugin/plugin.json",
-      "sha256": "4ef84fa72de53337f1358a067c1cad6c87a0dd5e4f23642e2adf549aa9c3523f"
+      "sha256": "fd966251a3374a646e4507d40296edbf1261faa16b6ff412d555a236887ccc74"
     },
     {
       "path": "plugin/plugin.json",
-      "sha256": "b191c4a4024cc401cdff539dc27e0f0b3c32eb8884a9e3782211b9592b16b090"
+      "sha256": "1f325c7cd0241db7edc7a3aec09583110e9f95dfb97a1049b3331959bc13ed20"
     },
     {
       "path": "plugin/skills/manual-model-call/SKILL.md",
-      "sha256": "d25ed3d383166ac5093061e7c43715a5bfc7d1f809b4a2c888d939afd754564a"
+      "sha256": "1d7881323fad00aa5f483e16b19c047c1d727f25c6561fa7764d4b0463f1cc8e"
     },
     {
       "path": "plugin/skills/model-budget-approval/SKILL.md",
-      "sha256": "ac23b9f6d1616390e3bf9a6097a81eaf18f64c0ce01dbe4c5eef86f1e3a3734b"
+      "sha256": "15294d6b445f99f706c522edace8667197030800eab89dd497f737d906a72650"
+    },
+    {
+      "path": "plugin/skills/model-orchestration/SKILL.md",
+      "sha256": "c42828ad0de89e6cfab25496d7cfe560d4f28a17d57c9eb6434e59183d8f8a60"
     },
     {
       "path": "plugin/skills/model-orchestration/agents/openai.yaml",
       "sha256": "1c83c2bac924b5e521f2cc9dcf3d6cf3e26def55dd84096ea45e8de771fd8f63"
     },
     {
-      "path": "plugin/skills/model-orchestration/SKILL.md",
-      "sha256": "cf39cd7b4010d496351b6192cd4d01ed5b5ab4e1beb8433d2c8eaeea47841a46"
-    },
-    {
       "path": "plugin/skills/pricing-updates/SKILL.md",
-      "sha256": "fc3f35645866042977383ab3f9c821c5f070b78b54fc760ba2c5dad7e3429d7c"
+      "sha256": "3ae099eba345800ac1b3efe08ac98fd57c7d76990c295352f666f60e2a8eb0dc"
     },
     {
       "path": "plugin/skills/provider-setup/SKILL.md",
-      "sha256": "522768ba5ddcf1c27a46563b4e7e969901a34d2fbf91e457b01379c829ce1526"
+      "sha256": "86c1a57b6027541a1602d63c977b54a5be4b17b03b725ec9a9d897492605fce6"
+    },
+    {
+      "path": "scripts/build-widget.mjs",
+      "sha256": "16272633daef5bdc5cf6188f0f9c170e2d44f31153c68b93565aa115a49ff7c1"
+    },
+    {
+      "path": "tests/gemini.test.mjs",
+      "sha256": "8a24c2f23a06a4815004464c8da4ba61be9c551ab59cdc3395b8cf137f830dcc"
+    },
+    {
+      "path": "tests/pricing.test.mjs",
+      "sha256": "7daaa5f962d99ac48845d77195f8c79b8e1016e96755e4fe282b839021d4b4fc"
+    },
+    {
+      "path": "tests/provider-runtime.test.mjs",
+      "sha256": "88248fd27ac6704fcb89908ab5dfae335fe00b5e363b2e3d75a2bb9b0805f98e"
+    },
+    {
+      "path": "skills/manual-model-call/SKILL.md",
+      "sha256": "1d7881323fad00aa5f483e16b19c047c1d727f25c6561fa7764d4b0463f1cc8e"
+    },
+    {
+      "path": "skills/model-budget-approval/SKILL.md",
+      "sha256": "15294d6b445f99f706c522edace8667197030800eab89dd497f737d906a72650"
+    },
+    {
+      "path": "skills/model-orchestration/SKILL.md",
+      "sha256": "c42828ad0de89e6cfab25496d7cfe560d4f28a17d57c9eb6434e59183d8f8a60"
+    },
+    {
+      "path": "skills/model-orchestration/agents/openai.yaml",
+      "sha256": "1c83c2bac924b5e521f2cc9dcf3d6cf3e26def55dd84096ea45e8de771fd8f63"
+    },
+    {
+      "path": "skills/pricing-updates/SKILL.md",
+      "sha256": "3ae099eba345800ac1b3efe08ac98fd57c7d76990c295352f666f60e2a8eb0dc"
+    },
+    {
+      "path": "skills/provider-setup/SKILL.md",
+      "sha256": "86c1a57b6027541a1602d63c977b54a5be4b17b03b725ec9a9d897492605fce6"
     },
     {
       "path": "verification.json",
-      "sha256": "f86c64413622a777fd1546e7c85a8372a3531f36c2b04627436f5057ad280e8c"
+      "sha256": "8f71d9f652d8b3ff73b33ec34404914fc0c4bb9ef6dde0230b1eb1827389a733"
     },
     {
-      "path": "maintenance/3.2.2.md",
-      "sha256": "b699da68e40d4f5b5cfb9aa61ec164f77167cbab01fa32c85b75b8a0a775f7a1"
+      "path": "maintenance/3.3.0.md",
+      "sha256": "90f78d98c8c3d7742d451898aa1252a02b26e16fb39457285d0c2b45f2d46b3d"
     }
   ]
 }

@@ -19,4 +19,3 @@ The primary assistant remains responsible for the final answer. Use this plugin 
 10. In the final answer, mention which model IDs actually returned answers and how they changed the result when relevant. Never claim an external review happened unless a real tool call returned it. Distinguish local mock tests, hosting success, plugin connection, and real provider inference.
 
 This skill provides workflow instructions. The host may still require tool approvals, and it must have the plugin selected/available. Enabling the plugin does not guarantee a model will be called for every task.
-

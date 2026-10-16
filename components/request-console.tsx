@@ -3,7 +3,7 @@ import {useEffect,useState} from 'react';
 import {api} from '@/lib/client-api';
 type Estimate={models:string[];model_count:number;rough_input_tokens:number;output_cap_per_model:number;rough_work_tokens:number;conservative_reserved_cny?:number;conservative_reserved_usd?:number;remaining_daily_cny?:number;max_wait_seconds:number;approval_reasons:string[]};
 type RequestInfo={request_id:string;status:string;estimate:Estimate;task?:string;context?:string;result?:unknown;results?:unknown[]};
-const fee=(e:Estimate,digits=5)=>(e.conservative_reserved_cny!=null?'¥':'$')+(e.conservative_reserved_cny??e.conservative_reserved_usd??0).toFixed(digits);
+const fee=(e:Estimate,digits=5)=>e.conservative_reserved_cny!=null?'¥'+e.conservative_reserved_cny.toFixed(digits):'旧币种计划，请重新估算';
 export default function RequestConsole({models}:{models:string[]}){
  const [task,setTask]=useState(''),[context,setContext]=useState(''),[mode,setMode]=useState('consult_model'),[model,setModel]=useState(''),[large,setLarge]=useState(false),[items,setItems]=useState<RequestInfo[]>([]),[current,setCurrent]=useState<RequestInfo|null>(null),[notice,setNotice]=useState(''),[busy,setBusy]=useState(false);
  const refresh=async()=>{const r=await api<{requests:RequestInfo[]}>('/api/requests');setItems(r.requests)};

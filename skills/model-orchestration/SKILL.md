@@ -1,6 +1,6 @@
 ---
 name: model-orchestration
-description: Proactively consider external models as cognitive resources for complex reasoning, uncertainty, useful independent verification, alternative ideas, or a bounded subtask. GPT-6 decides whether the expected benefit warrants calling them within the user's saved policy. Also use when the user asks to consult Claude, Gemini, DeepSeek, or other external models, or manage Model Delegator settings.
+description: Proactively consider external models as cognitive resources for complex reasoning, uncertainty, useful independent verification, alternative ideas, or a bounded subtask. GPT-6 decides whether the expected benefit warrants calling them within the user's saved policy. Also use when the user asks to consult Qwen, GLM, Kimi, Claude, Gemini, DeepSeek, or other external models, or manage Model Delegator settings.
 ---
 
 # Model Delegator
