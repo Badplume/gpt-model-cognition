@@ -1,0 +1,9 @@
+{
+  "retrievedAt": "2026-10-16T12:20:15.587Z",
+  "description": "Exact public factual pricing tables extracted for parser fixtures; personal credentials and inference are not involved.",
+  "sources": {
+    "global-anthropic.md": "https://platform.claude.com/docs/en/about-claude/pricing.md",
+    "global-gemini.html": "https://ai.google.dev/gemini-api/docs/pricing",
+    "global-xai.html": "https://docs.x.ai/developers/pricing"
+  }
+}

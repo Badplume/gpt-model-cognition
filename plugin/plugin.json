@@ -24,8 +24,14 @@
     "model-orchestration",
     "gpt-6",
     "direct-provider",
-    "budget-approval"
+    "budget-approval",
+    "official-pricing",
+    "cny-budget",
+    "qwen",
+    "glm",
+    "kimi"
   ],
   "name": "dev-6b5f62835bf48191a0e64586536934a8",
-  "version": "3.1.0"
+  "version": "3.2.0"
 }
+

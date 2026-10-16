@@ -1,37 +1,31 @@
 {
-  "version": "3.1.2",
-  "date": "2026-10-16",
-  "published_source_commit": "c976b5c4001d639eee2c43997f4139e1cff4d1e8",
-  "plugin_release": "pluginrel_6ad20080fc9081918657fa9b5021432c",
-  "verified": {
-    "mock_tests": 40,
-    "typecheck": true,
-    "production_build": true,
-    "production_deployment": true,
-    "cloud_plugin_package": true,
-    "skills": 4,
-    "local_desktop_package_installed": true,
-    "local_desktop_package_enabled": true,
-    "native_settings_web_permission_save": true,
-    "starter_limits_saved": true,
-    "missing_provider_blocks_inference": true,
-    "used_or_reserved_usd": 0,
-    "private_github_backup": true,
-    "native_embedded_setup_render": true,
-    "native_full_console_render": true,
-    "native_bridge_read_settings": true,
-    "mcp_2026_required_cache_fields": true,
-    "worker_runtime_tests": 3,
-    "deepseek_production_reachability": true,
-    "probe_credentials_sent": false,
-    "probe_inference_called": false,
-    "deepseek_key_saved": true,
-    "deepseek_live_model_directory": true,
-    "user_confirmed_deepseek_connection": true
+  "version": "3.2.0",
+  "source_commit": "f81bb7589762eed781e5b2c236c4b2618757d248",
+  "plugin_release": "pluginrel_6ad21a2dca588191ae876d7092e7e31f",
+  "deployment": "appgdep_6ad219fb90308191bf2e98a8effd4761",
+  "production_deployment": "succeeded",
+  "tests": 53,
+  "typecheck": "passed",
+  "build": "passed",
+  "official_source_live_refresh": {
+    "status": 200,
+    "providers": 8,
+    "price_entries": 113,
+    "fx": "ECB",
+    "readback": "passed"
   },
-  "not_verified": [
-    "Real paid provider inference"
-  ],
-  "credentials_in_backup": false,
-  "observed_issue": "Fixed workerd's unsupported redirect:error option for official catalog and inference calls. Use manual plus explicit 3xx rejection."
+  "existing_deepseek_effective_pricing": "official USD .3 input /1.2 output per million peak uncached",
+  "budget_currency": "CNY",
+  "user_settings_migration": "verified through authenticated MCP; historical USD retained",
+  "real_new_provider_inference": "not run; no new provider credentials",
+  "desktop_visual": "not inspected: browser automation unavailable; self-contained resources and protocol tests passed",
+  "automation": {
+    "id": "Automation_75f3a867b7e48191acaceb1fb755c92e",
+    "enabled": true,
+    "time": "09:00 Asia/Shanghai daily",
+    "first_scheduled_occurrence": "2026-10-17",
+    "service_writer": "POST /api/pricing",
+    "unattended_service_access": "verified with POST and GET readback",
+    "scheduled_run": "not yet due"
+  }
 }
