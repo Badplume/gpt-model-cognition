@@ -5,13 +5,13 @@
     "category": "Other",
     "defaultPrompt": null,
     "developerName": "App developer",
-    "displayName": "Model Delegator",
+    "displayName": "gpt-model-cognition",
     "longDescription": "私人多模型认知助手：直连 Claude、Gemini、DeepSeek 与 Grok，支持主动调用、工作量估算、预算审批和内嵌控制台。",
     "shortDescription": "私人多模型认知助手：直连 Claude、Gemini、DeepSeek 与 Grok，支持主动调用、工作量估算、预算审批和内嵌控制台。",
     "websiteURL": "https://model-delegator-pleia.tangyvole32.chatgpt.site"
   },
   "name": "dev-6b5f62835bf48191a0e64586536934a8",
-  "version": "3.4.0",
+  "version": "3.5.2",
   "description": "私人多模型认知助手：直连 Claude、Gemini、DeepSeek 与 Grok，支持主动调用、工作量估算、预算审批和内嵌控制台。",
   "author": {
     "name": "App developer"

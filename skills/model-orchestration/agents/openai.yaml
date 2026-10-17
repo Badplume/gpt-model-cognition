@@ -1,6 +1,6 @@
 interface:
   display_name: "外部认知资源"
-  short_description: "由 GPT-6 自主判断何时咨询、委派与独立复核。"
-  default_prompt: "按我的 Model Delegator 设置，在确有帮助时使用外部模型作为认知资源，由你判断、核查并完成最终回答。"
+  short_description: "由 GPT 自主判断何时咨询、委派与独立复核。"
+  default_prompt: "按我的 gpt-model-cognition 设置，在确有帮助时使用外部模型作为认知资源，由你判断、核查并完成最终回答。"
 policy:
   allow_implicit_invocation: true

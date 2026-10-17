@@ -1,6 +1,6 @@
 ---
 name: model-budget-approval
-description: Use before any paid Model Delegator consultation to estimate workload, apply spending limits, request human approval for large work, and resume an already approved immutable request.
+description: Use before any paid gpt-model-cognition consultation to estimate workload, apply spending limits, request human approval for large work, and resume an already approved immutable request.
 ---
 
 # Workload, budget and approval

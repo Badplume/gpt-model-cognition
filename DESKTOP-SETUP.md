@@ -1,3 +1,7 @@
+# gpt-model-cognition desktop setup
+
+Open the installed plugin's settings or workbench. Connection and model selection, policy, CNY budgets, approvals, official prices and history share a self-contained desktop panel. Official keys can be typed in the panel and encrypted before transmission. If the host lacks WebCrypto, use the authenticated secure-page fallback. Final paid-request approval still uses that secure page. Existing accounts and plugin connections remain valid; refresh the plugin UI or reopen its panel to load version 3.5.0.
+
 # 桌面安装与当前验证状态
 
 云端私人插件已保存为 3.0.0。私人插件不会出现在公共目录搜索结果中。

@@ -9,3 +9,4 @@ export const requests=sqliteTable('requests',{id:text('id').primaryKey(),userId:
 export const officialPricing=sqliteTable('official_pricing',{id:text('id').primaryKey(),payload:text('payload'),fetchedAt:text('fetched_at'),attemptedAt:text('attempted_at').notNull(),error:text('error')});
 
 export const pricingPolicy=sqliteTable('pricing_policy',{id:integer('id').primaryKey(),autoUpdate:integer('auto_update').notNull().default(1),refreshHours:integer('refresh_hours').notNull().default(24)});
+export const connectionSessions=sqliteTable('connection_sessions',{id:text('id').primaryKey(),userId:text('user_id').notNull(),expiresAt:integer('expires_at').notNull()});

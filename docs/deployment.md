@@ -1,4 +1,4 @@
-# 部署自己的 Model Delegator
+# 部署自己的 gpt-model-cognition
 
 这是依赖 Sites 身份网关、Cloudflare Workers 与 D1 的源码项目。
 开源仓库不包含任何可直接共用的模型账户、服务端密钥或数据库。

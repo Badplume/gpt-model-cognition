@@ -1,9 +1,9 @@
 {
-  "version": "3.4.0",
-  "created_utc": "2026-10-16T15:19:07.358Z",
-  "source_commit": "a8edd1f3e3044a756f1019a10447dbd604fca79f",
-  "repository": "Badplume/model-cognition-hub",
-  "mode": "incremental public source backup",
+  "version": "3.5.2",
+  "created_utc": "2026-10-17T06:21:06.270Z",
+  "source_commit": "07e50a5a0f7da5e5b3b66dc6d5e81393b45eed3f",
+  "repository": "Badplume/gpt-model-cognition",
+  "mode": "incremental public source backup with deployment documentation",
   "excluded": [
     ".openai/hosting.json",
     "tsconfig.tsbuildinfo",
@@ -17,139 +17,175 @@
   "files": [
     {
       "path": "README.md",
-      "sha256": "08c6f21a720b4f068055cdc46b9bc5c7b745129c8c66a46783336987b947c5bc"
+      "sha256": "d13db2219d0c8d89c4a13a4c0ac1443429e07c0e43941a8e7473f93894a59382"
     },
     {
-      "path": "app/api/models/route.ts",
-      "sha256": "70c28a273b4e699a6ab9764ef1f1c3c66ed94d1731b235f3960330c8dc4eed47"
+      "path": "app/globals.css",
+      "sha256": "d688e14bfe155c5b85dc1a06888fda53ac854a5b1598ffc073985df8ac1b15cb"
+    },
+    {
+      "path": "app/layout.tsx",
+      "sha256": "6d3aee6c8c4ac7ba7fcd5a4cc4985e7971681bcd16c8a324662b0a1524433c99"
     },
     {
       "path": "app/page.tsx",
-      "sha256": "9c31c941bdb12ff7b9c8d06e169a1abbc97e0dcb724977028b46a119d697a489"
-    },
-    {
-      "path": "components/official-rates.tsx",
-      "sha256": "fddbd481d358a7be7c4f9d9a85f8916c2e2869103866ce5d0915c69bd3393d78"
-    },
-    {
-      "path": "components/pricing-panel.tsx",
-      "sha256": "54fec438df6c0d50d671ba0d8827d45e0f16cc8f40758642394cba238f956cee"
+      "sha256": "e23c07a14787205b617d4abb826a4b161a8ee10e98fcccedda6823228dce9100"
     },
     {
       "path": "components/provider-manager.tsx",
-      "sha256": "fa40ab8fa434c7b97d6e314d081b978813b8c395028aded26db915ab7229d382"
+      "sha256": "286031c47d7c984b9016614695e5c23828715d2967a29cf36bae5c92d0dd08ed"
+    },
+    {
+      "path": "components/request-console.tsx",
+      "sha256": "d3a84147b5ac3a046f03327145eadaac7ddc19505a8ee5df3d2a27af08d6e7c1"
+    },
+    {
+      "path": "db/schema.ts",
+      "sha256": "be7dbf0322705a72cd796259abb4946e051f748424449cd1890dc25e4869d4d2"
+    },
+    {
+      "path": "drizzle/0004_greedy_kate_bishop.sql",
+      "sha256": "6af8e575b1e75044292285ac4b89ddf12704dc65399329a10c4ed714e1982c2e"
+    },
+    {
+      "path": "drizzle/meta/0004_snapshot.json",
+      "sha256": "3aab891a133141f59ac8572a96893e675d805250662d00434a6561440a05950e"
+    },
+    {
+      "path": "drizzle/meta/_journal.json",
+      "sha256": "54dda43ecb5e00b9085664cebf2cc70c86dcad8419be6c458451b3ac61cc336d"
     },
     {
       "path": "lib/client-api.ts",
-      "sha256": "248426fe385aa616d7e55d7462142a71373fcf148f98a2bda05b29fd9090a749"
+      "sha256": "3d339813d5e98fd95407931bf6fa5b5ca98ee011b223af68a6f656067350f8af"
+    },
+    {
+      "path": "lib/connection-crypto.mjs",
+      "sha256": "b21693539da33cc0d40b202474a69de11ec1f34e15400ae01feeef4a26807b81"
     },
     {
       "path": "lib/console-ui.mjs",
-      "sha256": "96d0b201db52663ccac8f00e40143c7d76818ab6aada84228983c5cde5be364b"
+      "sha256": "f745f60d05c63fbfa966ebd2b2e93afa2e73ceb73567d0c239fba5dc82f4f230"
     },
     {
       "path": "lib/delegator.mjs",
-      "sha256": "234e45874b641b7f24c105cf8a3ca2891ff9f8ed032bb970ac73845f888b84d7"
+      "sha256": "496fb8e1a1df2b28f0e4a7500380e2a0280d5cb93ef7df050a360fd5025681e3"
+    },
+    {
+      "path": "lib/desktop-connection.mjs",
+      "sha256": "9f6e216e27d41a3a5ac087f403125c2637e7463f93ef988dbdce33e2f1279c67"
     },
     {
       "path": "lib/desktop-settings-ui.mjs",
-      "sha256": "94ded0e8d91bb073f703c533bcda4efcb5f1ecc7fd5daf1db1f93c1c208688d8"
+      "sha256": "1257f652dd67cf06317a1fdaf34ef10043571f32b6230e39893cf231a41308e8"
     },
     {
-      "path": "lib/price-display.mjs",
-      "sha256": "734d517d64522f422461744b5fc50b925d4d72c2d4f5fa32126d5e1e004776f1"
+      "path": "lib/pricing-policy.mjs",
+      "sha256": "b18c7c738ecdd65b5fa59998f922b77d33ffd192d5a5bb95889f48f344e72b02"
     },
     {
-      "path": "lib/pricing-global.mjs",
-      "sha256": "63e26aab23d6f3e3b747457a2147d8c32d4e2e044fa3a16f5ad56df55817f3cc"
-    },
-    {
-      "path": "lib/pricing-qwen-deepseek.mjs",
-      "sha256": "84b877e63af48039a05e8901b075a2c0aae4d9b27d3bf944ca66ad74c6bb9cd8"
-    },
-    {
-      "path": "lib/pricing.mjs",
-      "sha256": "056c7c99bd7e15dd1b2c337c494091decb4c62ed082a85b60cd3a63210e4ca8e"
+      "path": "lib/settings-ui.mjs",
+      "sha256": "642e8ec76d2c5a1729aa72287fc11fdf837ddba1f88256ee5f7c71608540507b"
     },
     {
       "path": "package.json",
-      "sha256": "e8730b5d67439a5ac256b4ec5b8bfd6c6f4db395c7f4be85934ce9fe25928062"
+      "sha256": "2157c6d5d09f39e961dababa0b4219b16dc0c793d761ab231399a0ae70ec0802"
     },
     {
       "path": "plugin/.codex-plugin/plugin.json",
-      "sha256": "c0b9dc2468abbf56a63eec1db6de30e3eaeb5991bc5e16c0f51366d30917fa29"
+      "sha256": "2707f5f971448f50e1bb55957b1dafa68fc9255c379c236240f743b8bee6f9b4"
     },
     {
       "path": "plugin/plugin.json",
-      "sha256": "00f8c3665538c53d5077dbb852ef41bce8993e74725028982515a6a779c5faaa"
+      "sha256": "20099631203404242373bd39cdc1ec907a5897eb59c078bc7d3f6af0a5a64f75"
+    },
+    {
+      "path": "plugin/skills/manual-model-call/SKILL.md",
+      "sha256": "e0c3696baccbec19acf465e94f78477e3616e8f448ddb004f61149d651c6da99"
     },
     {
       "path": "plugin/skills/model-budget-approval/SKILL.md",
-      "sha256": "a954cba81c6d5eab2043bb17e896553a4effe963c6d1cbf1f28782c2d4a9759d"
+      "sha256": "b1dab10c56d012c2469a72ebda54b79a8df5440e1cc7137ed5b51416728596a9"
+    },
+    {
+      "path": "plugin/skills/model-orchestration/SKILL.md",
+      "sha256": "c0052352acc74a7972cf839feff889c3d5e98b30f5ebe8c76b09ff392a468bcb"
+    },
+    {
+      "path": "plugin/skills/model-orchestration/agents/openai.yaml",
+      "sha256": "b80b5997ab764dd73ca2727f8e465396c9e24d56f9a66d92482c94d7902d24e6"
     },
     {
       "path": "plugin/skills/pricing-updates/SKILL.md",
-      "sha256": "ca8fc13db37e248c8dad86342b75dc7101ebc5e9f389ef5ce44cf10e57b8937b"
+      "sha256": "c1ba89d23ef9fcface3d671117377b213afd7f4600702436ada63b7e3f7a5678"
     },
     {
       "path": "plugin/skills/provider-setup/SKILL.md",
-      "sha256": "2c1a6099b61b4a49d6f263e1b1202dfb5c6bb9c8e7a22b40c35501eb78e20b36"
+      "sha256": "3b2388eb0b3c5b756a3e8ae583112528e5773d104e586ad26b3e17702bc1a56f"
     },
     {
       "path": "scripts/build-widget.mjs",
-      "sha256": "90a7d9dcf877ecdf4241dd704eeb680dfca46522b21fd781623a59cfac6ae999"
+      "sha256": "c25d210f667a1bb844df77a6095ac9ce6ebd8bf72651080a0eb2acae4ec8f076"
     },
     {
       "path": "tests/delegator.test.mjs",
-      "sha256": "454512e18d62a00572eb83465746ff0fc7a5e726770c7b3cb4a6651520c1fd21"
+      "sha256": "7808810f8f211e178503ba71eeae1c5e59cbee36a9205dddb672553e0498e751"
     },
     {
-      "path": "tests/domestic-pricing.test.mjs",
-      "sha256": "1f8a3d0bc0fb982cc1f1a95ac4f328742bb625b3bcd542917bd4b69fcc930be4"
+      "path": "tests/desktop-connection.test.mjs",
+      "sha256": "82e72c6b4ead3e0f9939165e6335caf70048ce2f0d939780226288ed84a1ce21"
     },
     {
-      "path": "tests/fixtures/public-pricing/deepseek-current.html",
-      "sha256": "d4c4f2c47faa95c76a3e9ea433a6b7cdd9edd553baeb4fa3538907521789aef5"
+      "path": "tests/fixtures/provider-worker.mjs",
+      "sha256": "d4dce423237df119b980639bd80934c8ded51b056dde0eab851d9c4f71c9683f"
     },
     {
-      "path": "tests/fixtures/public-pricing/global.test.mjs",
-      "sha256": "3b166a63b7d843a2c05f35b40f5b2392498ad2561fe0b76dcc2f49622806f55f"
-    },
-    {
-      "path": "tests/pricing.test.mjs",
-      "sha256": "3c319163016e6281e76ef8181f4d5426a9d015d19f757cc7f635d2f227af6ac5"
+      "path": "tests/provider-runtime.test.mjs",
+      "sha256": "331fbb814c1824aac6ac228aaa434a2dc7a60254c2fae5cd8c42be719311da78"
     },
     {
       "path": "skills/manual-model-call/SKILL.md",
-      "sha256": "1d7881323fad00aa5f483e16b19c047c1d727f25c6561fa7764d4b0463f1cc8e"
+      "sha256": "e0c3696baccbec19acf465e94f78477e3616e8f448ddb004f61149d651c6da99"
     },
     {
       "path": "skills/model-budget-approval/SKILL.md",
-      "sha256": "a954cba81c6d5eab2043bb17e896553a4effe963c6d1cbf1f28782c2d4a9759d"
+      "sha256": "b1dab10c56d012c2469a72ebda54b79a8df5440e1cc7137ed5b51416728596a9"
     },
     {
       "path": "skills/model-orchestration/SKILL.md",
-      "sha256": "c42828ad0de89e6cfab25496d7cfe560d4f28a17d57c9eb6434e59183d8f8a60"
+      "sha256": "c0052352acc74a7972cf839feff889c3d5e98b30f5ebe8c76b09ff392a468bcb"
     },
     {
       "path": "skills/model-orchestration/agents/openai.yaml",
-      "sha256": "1c83c2bac924b5e521f2cc9dcf3d6cf3e26def55dd84096ea45e8de771fd8f63"
+      "sha256": "b80b5997ab764dd73ca2727f8e465396c9e24d56f9a66d92482c94d7902d24e6"
     },
     {
       "path": "skills/pricing-updates/SKILL.md",
-      "sha256": "ca8fc13db37e248c8dad86342b75dc7101ebc5e9f389ef5ce44cf10e57b8937b"
+      "sha256": "c1ba89d23ef9fcface3d671117377b213afd7f4600702436ada63b7e3f7a5678"
     },
     {
       "path": "skills/provider-setup/SKILL.md",
-      "sha256": "2c1a6099b61b4a49d6f263e1b1202dfb5c6bb9c8e7a22b40c35501eb78e20b36"
+      "sha256": "3b2388eb0b3c5b756a3e8ae583112528e5773d104e586ad26b3e17702bc1a56f"
+    },
+    {
+      "path": "SECURITY.md",
+      "sha256": "efdcf67fbbf1209ed95c7045219b2c75454606633dc5bf8e0d85e53f58cd8f04"
+    },
+    {
+      "path": "DESKTOP-SETUP.md",
+      "sha256": "b8c85ce369bb73bc0005fd47b7c17fa18174478e402dbce94d478867226a9db4"
+    },
+    {
+      "path": "docs/deployment.md",
+      "sha256": "d40188bc983e29d34354da67cc2a3597db23f491710daa69786cf0bcb4cb3b2e"
     },
     {
       "path": "verification.json",
-      "sha256": "4b76c87f0b7955b5f371730e88324a56a3da315547648b6646258679b6b714e3"
+      "sha256": "d079cce480a491bd6344be4e048d8b2d2e0d7791f64d8ab6d3be7df1782650a7"
     },
     {
-      "path": "maintenance/3.4.0.md",
-      "sha256": "f0a6eddbf7c8b5ff68d413e9057e7f1bece0aab41fa3afab7c46cb1694a716cd"
+      "path": "maintenance/3.5.2.md",
+      "sha256": "b8ac77b6c8b98b98d643bc0b2fdeb4dbe98db0bbe834fa51afbd41b413227110"
     }
   ]
 }

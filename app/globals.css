@@ -6,3 +6,16 @@
 textarea{font:inherit;width:100%;padding:12px;border:1px solid #dce0d3;border-radius:8px;resize:vertical;background:#fff;color:#30352f;font-size:12px;line-height:1.8}.request-row{display:flex;justify-content:space-between;gap:16px;width:100%;text-align:left;padding:14px 0;background:none;border:0;border-bottom:1px solid #e7eadf;font-size:11px}.request-row small{display:block;font-size:9px}.request-text{white-space:pre-wrap;overflow-wrap:anywhere;background:#f5f7ef;border-radius:8px;padding:16px;font-size:12px;line-height:1.8;max-height:450px;overflow:auto}details summary{cursor:pointer;font-size:12px;color:#6b7d55}.panel-head>.outline-button,.panel-head>.text-button{margin-left:auto}@media(max-width:760px){.sidebar nav{flex-wrap:wrap}.panel-head{flex-wrap:wrap}}
 
 .price-card{padding:16px 18px;border:1px solid var(--border,#e3e3dd);border-radius:12px;background:var(--surface,#fafaf7);margin:12px 0}.price-card small{display:block;margin-top:6px}.price-card p{font-size:13px;line-height:1.6}.pricing-sources>div{display:grid;grid-template-columns:110px 1fr;gap:4px 12px;padding:12px 0;border-bottom:1px solid var(--border,#e3e3dd);font-size:12px}.pricing-sources small{grid-column:2;overflow-wrap:anywhere}@media(max-width:600px){.pricing-sources>div{grid-template-columns:80px 1fr}.model-price{max-width:130px;white-space:normal}}
+
+/* Desktop settings workbench: compact navigation and host theme tokens. */
+.desktop-workbench{--desktop-text:var(--color-text-primary,#26312c);color:var(--desktop-text);background:var(--color-background-primary,#faf9f6)}
+.desktop-workbench .sidebar{width:195px;padding:24px 14px;background:var(--color-background-secondary,#f1f2ec)}
+.desktop-workbench main{margin-left:195px;width:calc(100% - 195px)}
+.desktop-workbench .brand{font-size:14px;overflow-wrap:anywhere}.desktop-workbench .brand small{font-size:11px}
+.desktop-workbench .sidebar-note,.desktop-workbench .doc-link,.desktop-workbench .eyebrow{display:none}
+.desktop-workbench .content{max-width:1050px;padding:24px 28px 125px}.desktop-workbench .topbar{height:52px;padding:0 28px}
+.desktop-workbench .page-heading h1{font-size:24px}.desktop-workbench .panel{padding:22px;background:var(--color-background-primary,#fff)}
+.desktop-workbench .panel h2{font-size:16px}.desktop-workbench .field>span,.desktop-workbench .toggle-row b{font-size:13px}
+.desktop-workbench .field input,.desktop-workbench .field select,.desktop-workbench textarea{font-size:14px}
+.desktop-workbench .save-bar{left:195px;background:var(--color-background-primary,#fff)}
+@media(max-width:760px){.desktop-workbench .sidebar{width:auto;padding:16px}.desktop-workbench main{margin:0;width:100%}.desktop-workbench .content{padding:20px 16px 120px}.desktop-workbench .save-bar{left:0}.desktop-workbench .sidebar nav{margin-top:12px}.desktop-workbench .nav-item{font-size:12px}.desktop-workbench .brand small{display:none}}

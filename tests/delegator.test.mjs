@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {DatabaseSync} from 'node:sqlite';
 import {readFileSync,readdirSync} from 'node:fs';
 import {randomBytes} from 'node:crypto';
-import {DEFAULTS,seal,unseal,validateSettings,consult,mcp,checkOrigin,selectModels,readSettings,updateSettings,status,applyStarterLimits} from '../lib/delegator.mjs';
+import {DEFAULTS,seal,unseal,validateSettings,consult,mcp,checkOrigin,selectModels,readSettings,updateSettings,status,applyStarterLimits,TOOLS} from '../lib/delegator.mjs';
 import {SETTINGS_HTML,SETTINGS_URI} from '../lib/settings-ui.mjs';
 import {Script} from 'node:vm';
 import {prepareRequest,decideRequest,executeRequest,getRequest} from '../lib/workload.mjs';
@@ -17,14 +17,15 @@ function upstream(fn){return async(url,init)=>url.endsWith('/models')?Response.j
 const req=(body,auth=true)=>new Request('https://example.test/mcp',{method:'POST',headers:auth?{'oai-authenticated-user-id':'alice'}:{},body:JSON.stringify(body)});
 test('pricing management is exposed in native settings and in model-visible tools',async()=>{
  const env=await setup(),before=env.DB.sql.prepare('SELECT * FROM accounts').get(),settings=await readSettings(env,'alice');
- assert.equal(settings.values.pricingAutoUpdate,true);assert.equal(settings.values.pricingRefreshHours,24);
+ assert.equal(settings.values.pricingAutoUpdate,true);assert.equal(settings.values.pricingRefreshHours,'24');
  assert(settings.layout.some(g=>g.items.some(i=>i.tool==='open_pricing')));assert(settings.layout.some(g=>g.items.some(i=>i.tool==='refresh_pricing')));
- const changed=await updateSettings(env,'alice',{pricingAutoUpdate:false,pricingRefreshHours:72});assert.equal(changed.values.pricingAutoUpdate,false);assert.deepEqual(env.DB.sql.prepare('SELECT * FROM accounts').get(),before);
+ for(const invalid of [true,'',null,'daily','24.0',48])await assert.rejects(updateSettings(env,'alice',{pricingRefreshHours:invalid}));
+ const changed=await updateSettings(env,'alice',{pricingAutoUpdate:false,pricingRefreshHours:'72'});assert.equal(changed.values.pricingAutoUpdate,false);assert.equal(changed.values.pricingRefreshHours,'72');assert.equal(env.DB.sql.prepare('SELECT refresh_hours FROM pricing_policy').get().refresh_hours,72);assert.deepEqual(env.DB.sql.prepare('SELECT * FROM accounts').get(),before);
  const tools=(await(await mcp(req({jsonrpc:'2.0',id:1,method:'tools/list'},false),env)).json()).result.tools;
  for(const name of ['open_pricing','pricing_status','refresh_pricing']){const t=tools.find(x=>x.name===name);assert(t);assert(!t._meta?.ui?.visibility?.includes('app')||t._meta.ui.visibility.includes('model'));}
  const uri=tools.find(t=>t.name==='open_pricing')._meta.ui.resourceUri;
  const r=(await(await mcp(req({jsonrpc:'2.0',id:2,method:'resources/read',params:{uri}},false),env)).json()).result;assert(r.contents[0].text.includes('window.__MD_VIEW__="pricing"'));
- await assert.rejects(updateSettings(env,'alice',{pricingAutoUpdate:'false'}));assert.equal((await readSettings(env,'alice')).values.pricingRefreshHours,72);
+ await assert.rejects(updateSettings(env,'alice',{pricingAutoUpdate:'false'}));assert.equal((await readSettings(env,'alice')).values.pricingRefreshHours,'72');
 });
 test('encrypted key is bound to its owner',async()=>{const env=await setup();const x=await seal('never-expose','alice',env);assert(!x.includes('never-expose'));assert.equal(await unseal(x,'alice',env),'never-expose');await assert.rejects(unseal(x,'bob',env));});
 test('invalid budgets are blocked and permission can be saved before setup',()=>{assert.throws(()=>validateSettings({...DEFAULTS,callCny:2,dailyCny:1}));assert.equal(validateSettings({...DEFAULTS,enabled:true}).enabled,true);assert.throws(()=>validateSettings({...DEFAULTS,models:['a','a']}));});
@@ -81,7 +82,19 @@ test('starter limits preserve credentials, permission, model choices and policy'
 test('desktop settings include connection entry, clear master permission and all approval controls',async()=>{
  const env=await setup(),s=await readSettings(env,'alice');assert(s.layout.some(g=>g.items.some(i=>i.tool==='open_provider_setup')));assert(s.layout.some(g=>g.items.some(i=>i.tool==='apply_starter_limits')));
  const properties=s.layout.flatMap(g=>g.items.map(i=>i.property));for(const k of ['approvalMode','approvalCny','approvalTokens','approvalModels'])assert(properties.includes(k));
- assert(s.schema.properties.enabled.description.includes('不会更换主模型或立即消费'));assert(SETTINGS_HTML.includes('连接模型 / 填写 API Key'));assert(!SETTINGS_HTML.includes('请更新桌面端'));
+ assert(s.schema.properties.enabled.description.includes('不会更换主模型或立即消费'));assert(SETTINGS_HTML.includes('__GPT_MCP_APP__'));assert(SETTINGS_HTML.includes('connect_provider'));assert(!/<script[^>]+src=/.test(SETTINGS_HTML));
+});
+test('native settings layout follows the host primitive-field and tool-action contract',async()=>{
+ const env=await setup(),s=await readSettings(env,'alice');
+ for(const [name,field] of Object.entries(s.schema.properties)){
+  assert(['boolean','string','integer','number'].includes(field.type),name);assert(Object.hasOwn(s.values,name),name);assert.notEqual(s.values[name],undefined,name);
+  assert.equal(typeof s.values[name],field.type==='integer'?'number':field.type,name);
+  if(field.enum){assert.equal(field.type,'string',name);assert(field.enum.every(v=>typeof v==='string'),name);assert(field.enum.includes(s.values[name]),name);}
+ }
+ for(const group of s.layout){assert.equal(group.kind,'group');for(const item of group.items){
+  if(item.kind==='property'){assert.equal(typeof item.property,'string');assert(Object.hasOwn(s.schema.properties,item.property));}
+  else{assert.equal(item.kind,'tool');assert.equal(typeof item.tool,'string');const t=TOOLS.find(t=>t.name===item.tool);assert(t);assert.deepEqual(t.inputSchema.required,[]);}
+ }}
 });
 
 test('desktop resource loading includes required MCP 2026 cache hints via metadata and HTTP header',async()=>{

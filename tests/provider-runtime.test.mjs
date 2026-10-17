@@ -47,3 +47,4 @@ test('workerd can run the credential-free DeepSeek network check before configur
  }finally{await mf.dispose();}
 });
 test('workerd accepts empty-stream POST for automatic pricing updates',async()=>{const {mf,calls}=await runtime('ok');try{const r=await mf.dispatchFetch('http://local.test/?action=pricing-parse',{method:'POST',body:''});assert.equal(r.status,200);assert.deepEqual(await r.json(),{});assert.equal(calls.length,0);}finally{await mf.dispose()}});
+test('workerd supports the desktop ECDH/HKDF/AES-GCM connection envelope without upstream access',async()=>{const {mf,calls}=await runtime('ok');try{const r=await mf.dispatchFetch('http://local.test/?action=crypto-envelope'),data=await r.json();assert.equal(r.status,200,JSON.stringify(data));assert.deepEqual(data,{verified:true,plaintext_in_transport:false});assert.equal(calls.length,0);}finally{await mf.dispose()}});

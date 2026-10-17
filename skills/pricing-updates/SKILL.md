@@ -1,9 +1,9 @@
 ---
 name: pricing-updates
-description: Use when the human asks to update model prices, synchronize exchange rates, check official pricing, open pricing management, or manage Model Delegator automatic pricing updates in Chat, Work or Codex.
+description: Use when the human asks to update model prices, synchronize exchange rates, check official pricing, open pricing management, or manage gpt-model-cognition automatic pricing updates in Chat, Work or Codex.
 ---
 
-# Official pricing inside Model Delegator
+# Official pricing inside gpt-model-cognition
 
 Use the connected plugin tools; do not create a separate task or scrape prices in chat for normal maintenance.
 

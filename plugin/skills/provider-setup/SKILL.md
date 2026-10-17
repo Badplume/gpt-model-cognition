@@ -5,7 +5,7 @@ description: Use when the user wants to connect Qwen, GLM, Kimi, Claude, Gemini,
 
 # Direct official providers
 
-Prefer open_provider_setup for API Key setup. It shows a secure account link, where the human selects a platform and enters the Key. Native primitive settings do not contain password fields. Open open_console or the secure account page https://model-delegator-pleia.tangyvole32.chatgpt.site. API keys are entered only on that authenticated page. The server encrypts each provider's key separately and sends it only to that provider's fixed official endpoint.
+Prefer open_provider_setup for API Key setup inside the desktop workbench. The human selects a platform and types the Key into its password form. The desktop encrypts the Key using a five-minute, user-bound, single-use ECDH/HKDF/AES-GCM envelope before any tools/call. Connection tools accept ciphertext only; do not call them yourself, request keys in chat, inspect the password field, or claim they prove human approval. The server decrypts, validates the fixed official directory, then encrypts the stored Key in its vault. The authenticated account page https://model-delegator-pleia.tangyvole32.chatgpt.site remains a fallback for clients without WebCrypto. Native primitive settings do not contain password fields.
 
 Supported direct providers: Qwen via Alibaba Cloud Bailian Beijing, GLM via BigModel, Kimi China and international (separate keys), Anthropic Claude, Google Gemini, DeepSeek and xAI Grok. OpenRouter is optional; a direct-only configuration does not call its directory or inference endpoints. No personal credential belongs in plugin packages, GitHub backups, chat or tool arguments.
 
@@ -13,7 +13,7 @@ Guide the human to create a provider API key, connect it, read the official mode
 
 Ordinary website sign-in or a consumer chat subscription does not automatically provide API access. This version uses official API keys; it does not scrape logged-in websites, reuse session cookies, or claim unsupported OAuth account login. A platform-specific OAuth adapter would require a documented grant and separate implementation.
 
-The native desktop panel edits non-secret models, official pricing sync, CNY budgets and preferences using the MCP App bridge. Credential changes and final approval use the secure authenticated webpage. State these boundaries accurately. Direct-provider data retention is governed by that provider; the optional OpenRouter ZDR switch does not apply to direct endpoints.
+The desktop workbench edits models, official pricing sync, CNY budgets and preferences using the MCP App bridge, and connects official provider keys through the encrypted form. Final paid-request approval continues to use the authenticated same-origin secure page; no MCP tool may grant approval. App-only visibility is not proof of a human click. State these boundaries accurately. Direct-provider data retention is governed by that provider; the optional OpenRouter ZDR switch does not apply to direct endpoints.
 
 The enabled setting is the master permission and can be saved before connecting a Key or choosing models. Read readiness to distinguish permission from being ready to infer. Never claim enabling it makes a paid call. Use apply_starter_limits only when the human explicitly asks for starter numeric limits; it preserves credentials, model choices, policy and master permission.
 

@@ -1,3 +1,7 @@
+# gpt-model-cognition security
+
+Version 3.5.0 adds an encrypted desktop key form. P-256 ECDH, HKDF-SHA256 and AES-GCM protect the API key before tools/call. Only ciphertext is accepted by the app-only connection tool. Challenges bind the authenticated user, provider and purpose, expire after five minutes, and are atomically consumed in D1. Private transport keys are sealed with the existing vault. No provider credentials are returned to the UI or model. App-only visibility and encryption do not prove a human click; final paid-request approval remains on the authenticated same-origin HTTP page and is absent from MCP.
+
 # Security and deployment boundaries
 
 Never post API keys, vault keys, session cookies, OAuth tokens, database dumps,

@@ -1,6 +1,6 @@
 {
-  "name": "model-cognition-hub",
-  "version": "3.4.0",
+  "name": "gpt-model-cognition",
+  "version": "3.5.2",
   "private": true,
   "engines": {
     "node": ">=22.13.0"
